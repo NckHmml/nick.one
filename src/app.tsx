@@ -1,7 +1,22 @@
 import * as React from "react";
+import { Switch, Route } from "react-router";
+import Helmet from "react-helmet";
+
+import { HomePage } from "./pages/home";
+import { TestPage } from "./pages/test";
 
 export class AppComponent extends React.Component {
   public render() {
-    return <h1>Hello World!</h1>;
+    return (
+      <>
+        <Helmet
+          titleTemplate="Portfolio - %s"
+        />
+        <Switch>
+          <Route exact={true} path="/" component={HomePage} />
+          <Route exact={true} path="/test" component={TestPage} />
+        </Switch>
+      </>
+    );
   }
 }

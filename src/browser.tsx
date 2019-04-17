@@ -9,10 +9,13 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import { AppComponent } from "./app";
+import { BrowserRouter } from "react-router-dom";
 
 
 // Start rendering application
 ReactDOM.hydrate(
-  <AppComponent />,
+  <BrowserRouter>
+    <AppComponent />
+  </BrowserRouter>,
   document.getElementById("entry")
 );
