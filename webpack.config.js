@@ -2,6 +2,10 @@ const { CheckerPlugin } = require("awesome-typescript-loader");
 const { DefinePlugin } = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const autoprefixer = require("autoprefixer");
+const cssnano = require("cssnano");
+const magicImporter = require("node-sass-magic-importer");
 
 /**
  * Generates the webpack config
@@ -13,6 +17,7 @@ module.exports = (environment) => {
     watch: environment === "development",
     entry: [
       `${__dirname}/src/browser.tsx`,
+      `${__dirname}/src/style/main.scss`,
     ],
     
     output: {
@@ -50,6 +55,32 @@ module.exports = (environment) => {
           options: {
             helperDirs: [`${__dirname}/templates/helpers`]
           }
+        },
+        {
+          test: /\.scss$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: "css-loader",
+              options: {
+                url: false
+              }
+            }, {
+              loader: "postcss-loader",
+              options: {
+                plugins: [cssnano(), autoprefixer()]
+              }
+            }, {
+              loader: "sass-loader",
+              options: {
+                importer: magicImporter(),
+                includePaths: [
+                  `${__dirname}/src/style`
+                ],
+                sourceMap: environment === "local"
+              }
+            }
+          ]
         },
       ]
     },
@@ -92,6 +123,10 @@ module.exports = (environment) => {
       new CheckerPlugin(),
       new DefinePlugin({
         "DEBUG": JSON.stringify(environment !== "production"),
+      }),
+      new MiniCssExtractPlugin({
+        filename: "[name].[contenthash].css",
+        chunkFilename: "[name].[contenthash].css"
       }),
     ]
   }

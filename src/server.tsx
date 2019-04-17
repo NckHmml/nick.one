@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as express from "express";
 import * as React from "react";
 import * as Handlebars from "handlebars";
+import { Request, Response } from "express";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -14,7 +15,19 @@ const server = express();
 const indexHtml = fs.readFileSync(path.resolve(__dirname, "../dist/index.html"));
 const indexTemplate = Handlebars.compile(indexHtml.toString());
 
-const renderReact: express.RequestHandler = (req, res) => {
+const renderTemplate = (context: {}) => {
+  if (process.env.NODE_ENV === "production") {
+    // Optimize rendering for production
+    return indexTemplate(context);
+  } else {
+    // During dev the index.html might change, more dynamic aproach
+    const html = fs.readFileSync(path.resolve(__dirname, "../dist/index.html"));
+    const template = Handlebars.compile(html.toString());
+    return template(context);
+  }
+} 
+
+const renderReact: express.RequestHandler = (req: Request, res: Response) => {
   const reactDom = renderToString(
     <StaticRouter location={req.url}>
       <AppComponent />
@@ -23,7 +36,7 @@ const renderReact: express.RequestHandler = (req, res) => {
   const helmet = Helmet.renderStatic();
 
   res.writeHead(200, { "Content-Type": "text/html" });
-  res.end(indexTemplate({ 
+  res.end(renderTemplate({ 
     reactDom,
     helmet
   }));

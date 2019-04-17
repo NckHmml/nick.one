@@ -14,4 +14,6 @@ services:
     build: 
       context: .
       dockerfile: react.dockerfile
+    environment:
+      NODE_ENV: production
     command: npm run start
