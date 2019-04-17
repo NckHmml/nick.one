@@ -1,0 +1,41 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio",
+  "main": "src/server.tsx",
+  "scripts": {
+    "webpack-dev": "webpack --env=development",
+    "webpack-prod": "webpack --env=production",
+    "start": "ts-node src/server.tsx",
+    "watch": "ts-node-dev --no-notify src/server.tsx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://nhum.visualstudio.com/Portfolio/_git/Portfolio"
+  },
+  "author": "Nick Hummel",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/polyfill": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "@types/express": "^4.16.1",
+    "@types/react": "^16.8.13",
+    "@types/react-dom": "^16.8.4",
+    "awesome-typescript-loader": "^5.2.1",
+    "clean-webpack-plugin": "^2.0.1",
+    "core-js": "^2.6.5",
+    "express": "^4.16.4",
+    "handlebars": "^4.1.2",
+    "handlebars-loader": "^1.7.1",
+    "html-webpack-plugin": "^3.2.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "ts-node": "^8.1.0",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "typescript": "^3.4.3",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.0"
+  }
+}
