@@ -10,6 +10,7 @@ import { Helmet } from "react-helmet";
 
 import { AppComponent } from "./app";
 
+global.BROWSER = false;
 const server = express();
 
 const indexHtml = fs.readFileSync(path.resolve(__dirname, "../dist/index.html"));
@@ -28,14 +29,15 @@ const renderTemplate = (context: {}) => {
 } 
 
 const renderReact: express.RequestHandler = (req: Request, res: Response) => {
+  const context = { statusCode: 200 };
   const reactDom = renderToString(
-    <StaticRouter location={req.url}>
+    <StaticRouter location={req.url} context={context}>
       <AppComponent />
     </StaticRouter>
   );
   const helmet = Helmet.renderStatic();
 
-  res.writeHead(200, { "Content-Type": "text/html" });
+  res.writeHead(context.statusCode, { "Content-Type": "text/html" });
   res.end(renderTemplate({ 
     reactDom,
     helmet

@@ -123,6 +123,7 @@ module.exports = (environment) => {
       new CheckerPlugin(),
       new DefinePlugin({
         "DEBUG": JSON.stringify(environment !== "production"),
+        "BROWSER": true,
       }),
       new MiniCssExtractPlugin({
         filename: "[name].[contenthash].css",
