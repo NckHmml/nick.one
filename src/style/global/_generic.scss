@@ -1,0 +1,14 @@
+body {
+  font-family: 'Roboto Condensed', 'sans-sarif';
+}
+
+html, body, #entry {
+  height: 100%;
+  width: 100%;
+}
+
+.content {
+  float: right;
+  height: 100%;
+  width: calc(100% - 300px);
+}

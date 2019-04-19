@@ -1,3 +1,5 @@
+/// <reference path="./index.d.ts" />
+
 import * as path from "path";
 import * as fs from "fs";
 import * as express from "express";
@@ -49,6 +51,10 @@ server.get("/", renderReact);
 server.get("/index.html", renderReact);
 // Host /dist as static
 server.use(express.static(path.resolve(__dirname, "../dist")));
+// Static for dev, prod uses nginx
+if (process.env.NODE_ENV !== "production") {
+  server.use("/static", express.static(path.resolve(__dirname, "../static")));
+}
 // All other request try to handle by React
 server.get("/*", renderReact);
 

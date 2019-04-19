@@ -1,8 +1,17 @@
 // sass-lint:disable clean-import-paths
 /* Core */
 @import 'core/sizes';
+
+@import 'core/colors';
+@import 'core/font';
 @import 'core/media';
 
 /* Global */
+@import 'global/generic';
 @import 'global/grids';
 @import 'global/normalize';
+
+/* Components */
+
+@import '../components/**/*.scss';
+@import '../pages/**/*.scss';

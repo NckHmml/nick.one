@@ -11,10 +11,8 @@ export class NotFoundPage extends React.Component {
           <title>page not found</title>
         </Helmet>
 
-        <div className="container">
-          <div className="g-24">
-            <h1>404 - Page not found</h1>
-          </div>
+        <div className="g-24">
+          <h1>404 - Page not found</h1>
         </div>
       </Status>
     );

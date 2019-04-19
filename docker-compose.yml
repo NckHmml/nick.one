@@ -10,6 +10,10 @@ services:
       - "8080:80"
     depends_on:
       - react
+    volumes:
+      - type: bind
+        source: ./nginx.conf
+        target: /etc/nginx/nginx.conf
   react:
     build: 
       context: .

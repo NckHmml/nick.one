@@ -10,14 +10,12 @@ export class TestPage extends React.Component {
           <title>TestPages</title>
         </Helmet>
 
-        <div className="container">
-          <div className="g-24">
-            <h1>Hello World!</h1>
-            <h2>This is the TestPage</h2>
-            <Link to="/">Home</Link>
-            <br />
-            <Link to="/test">Test</Link>
-          </div>
+        <div className="g-24">
+          <h1>Hello World!</h1>
+          <h2>This is the TestPage</h2>
+          <Link to="/">Home</Link>
+          <br />
+          <Link to="/test">Test</Link>
         </div>
       </>
     );

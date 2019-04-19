@@ -1,0 +1,101 @@
+.nav {
+  width: 300px;
+  height: 100%;
+  position: relative;
+  display: inline-block;
+
+  &-figure {
+    border-bottom: 1px solid darken($cl-secondary, $cl-shade-1);
+    height: 200px;
+    position: relative;
+    padding: 0;
+
+    figure { 
+      position: absolute;
+      margin: auto;
+      width: 100%;
+      text-align: center;
+      top: 0;
+      bottom: 0;
+      height: 80px;
+    }
+
+    img {
+      display: inline-block;
+      height: 60px;
+      width: 60px;
+      border-radius: 30px;
+      overflow: hidden;
+    }
+
+    figcaption {
+      color: #FFF;
+      line-height: 20px;
+
+      span {
+        color: $cl-primary;
+      }
+    }
+  }
+
+  &-fixed {
+    width: 300px;
+    height: 100%;
+    position: fixed;
+    background: darken($cl-secondary, $cl-shade-3);
+    border-right: 1px solid $cl-primary;
+    box-sizing: border-box;
+    display: block;
+  }
+
+  &-content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+
+  &-item {
+    position: relative;
+    padding: 0;
+
+    a {
+      color: #FFF;
+      font-size: $fz-h3;  
+      text-decoration: none;
+      text-transform: uppercase;
+      display: block;
+      padding: 20px 30px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    &::after {
+      content: " ";
+      display: block;
+      width: 0;
+      border: 1px solid $cl-primary;
+      position: absolute;
+      left: -2px;
+      top: -100%;
+      bottom: -100%;
+      margin: auto;
+      height: 0;
+      box-sizing: border-box;
+      transition: width 500ms;
+    }
+
+    &:hover {
+      background: darken($cl-secondary, $cl-shade-4);
+
+      a {
+        color: $cl-primary;
+        transition: color 500ms;
+      }
+
+      &::after {
+        width: 25px;
+        transition: width 500ms;
+      }
+    }
+  }
+}
