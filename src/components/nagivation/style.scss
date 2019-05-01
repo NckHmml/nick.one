@@ -1,12 +1,40 @@
 .nav {
-  width: 300px;
+  $sz-figure: 200px;
+
+  width: 0;
   height: 100%;
   position: relative;
   display: inline-block;
 
+  &.open &-fixed {
+    left: 0;
+  }
+
+  &.open &-collapse {
+    border-radius: 3px 0 0 3px;
+    right: 0;
+  }
+
+  &-collapse {
+    color: #FFF;
+    position: absolute;
+    bottom: 18px;
+    right: -30px;
+    line-height: 30px;
+    width: 30px;
+    background: $cl-primary;
+    font-size: $fz-h3;
+    text-align: center;
+    border-radius: 0 3px 3px 0;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   &-figure {
     border-bottom: 1px solid darken($cl-secondary, $cl-shade-1);
-    height: 200px;
+    height: $sz-figure;
     position: relative;
     padding: 0;
 
@@ -39,19 +67,22 @@
   }
 
   &-fixed {
-    width: 300px;
+    width: $sz-nav;
     height: 100%;
     position: fixed;
     background: darken($cl-secondary, $cl-shade-3);
     border-right: 1px solid $cl-primary;
     box-sizing: border-box;
     display: block;
+    left: -$sz-nav;
+    transition: left 500ms ease;
   }
 
   &-content {
     position: relative;
     height: 100%;
     width: 100%;
+    overflow: hidden;
   }
 
   &-item {
@@ -67,6 +98,7 @@
       padding: 20px 30px;
       width: 100%;
       box-sizing: border-box;
+      line-height: 26px;
     }
 
     &::after {
@@ -94,8 +126,15 @@
 
       &::after {
         width: 25px;
-        transition: width 500ms;
       }
     }
+  }
+
+  &-items {
+    max-height: calc(100% - #{$sz-figure});
+    overflow-y: scroll;
+    box-sizing: content-box;
+    padding-right: 20px;
+    width: 100%;
   }
 }

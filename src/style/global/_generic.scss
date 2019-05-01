@@ -8,7 +8,13 @@ html, body, #entry {
 }
 
 .content {
+  box-sizing: border-box;
   float: right;
   height: 100%;
-  width: calc(100% - 300px);
+  width: 100%;
+  transition: padding 500ms ease;
+
+  .nav.open + & {
+    padding-left: $sz-nav;
+  }
 }
