@@ -30,7 +30,11 @@ export class Navigation extends React.Component<{}, INavigationState> {
           <div className="nav-content">
             <div className="nav-figure g-24">
               <figure>
-                <img src="/static/linkedin_avatar.png" />
+                <picture>
+                  <source srcSet="https://res.cloudinary.com/nhum/image/upload/c_thumb,dpr_2.0,f_auto,h_60,q_auto:best,r_30,w_60/v1556979029/linkedin_avatar_l4hhzf.png 2x" />
+                  <source srcSet="https://res.cloudinary.com/nhum/image/upload/c_thumb,dpr_1.0,f_auto,h_60,q_auto:best,r_30,w_60/v1556979029/linkedin_avatar_l4hhzf.png 1x" />
+                  <img src="https://res.cloudinary.com/nhum/image/upload/c_thumb,f_auto,h_60,q_auto:best,r_30,w_60/v1556979029/linkedin_avatar_l4hhzf.png" />
+                </picture>
                 <figcaption>nick <span>hummel</span></figcaption>
               </figure>
             </div>

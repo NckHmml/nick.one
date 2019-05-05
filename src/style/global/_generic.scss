@@ -13,6 +13,7 @@ html, body, #entry {
   height: 100%;
   width: 100%;
   transition: padding 500ms ease;
+  margin-bottom: 60px;
 
   .nav.open + & {
     padding-left: $sz-nav;
