@@ -59,6 +59,7 @@
     figcaption {
       color: #FFF;
       line-height: 20px;
+      font-size: $fz-h4;
 
       span {
         color: $cl-primary;
@@ -77,6 +78,7 @@
     left: -$sz-nav;
     transition: left 500ms ease;
     z-index: $z-nav;
+    padding-left: env(safe-area-inset-left);
   }
 
   &-content {

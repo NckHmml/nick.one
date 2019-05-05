@@ -1,0 +1,22 @@
+.text {
+  &-left {
+    text-align: left;
+  }
+
+  &-right {
+    text-align: right;
+  }
+
+  &-center {
+    text-align: center;
+  }
+}
+
+a[href] {
+  color: $cl-secondary;
+  transition: color 500ms;
+
+  &:hover {
+    color: $cl-primary;
+  }
+}
