@@ -1,0 +1,57 @@
+.c-checkbox {
+  input {
+    display: none;
+  }
+
+  span {
+    vertical-align: middle;
+
+    &:first-child {
+      margin-right: 4px;
+    }
+  }
+
+  label {
+    display: block;
+  }
+
+  &-toggle {
+    $height: 20px;
+    $spacing: 4px;
+
+    border: 1px solid $cl-primary;
+    border-radius: $height / 2;
+    cursor: pointer;
+    display: inline-block;
+    height: $height + 2px;
+    position: relative;
+    width: $height * 2;
+    box-sizing: border-box;
+
+    &::after {
+      background-color: $cl-primary;
+      border-radius: $height - $spacing;
+      bottom: 0;
+      content: ' ';
+      height: $height - $spacing;
+      left: $spacing / 2;
+      margin: auto;
+      position: absolute;
+      top: 0;
+      width: $height - $spacing;
+      transition: left 300ms ease-in-out, background-color 300ms ease-in-out;
+
+      input:checked+label & {
+        background-color: $cl-quaternary;
+        left: $height; // height * 2 - height - spacing + spacing = height
+      }
+    }
+
+    &:hover:after {
+      &,
+      input:checked+label & {
+        background-color: darken($cl-primary, $cl-shade-2);
+      }
+    }
+  }
+}

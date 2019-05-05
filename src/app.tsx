@@ -2,12 +2,17 @@ import * as React from "react";
 import { Switch, Route } from "react-router";
 import Helmet from "react-helmet";
 
-import { Navigation } from "./components/nagivation";
-import { HomePage } from "./pages/home";
-import { TestPage } from "./pages/test";
-import { NotFoundPage } from "./pages/notFound";
+import { KanaStore } from "./redux/kana";
 
-export class AppComponent extends React.Component {
+import { Navigation } from "./components/nagivation";
+import { NotFoundPage } from "./pages/notFound";
+import { HomePage } from "./pages/home";
+import { AboutPage } from "./pages/about";
+import { KanaPage } from "./pages/kana";
+
+export class App extends React.Component {
+  public static kanaStore = new KanaStore();
+
   public render() {
     return (
       <>
@@ -18,7 +23,8 @@ export class AppComponent extends React.Component {
         <div className="content">
           <Switch>
             <Route exact={true} path="/" component={HomePage} />
-            <Route exact={true} path="/test" component={TestPage} />
+            <Route exact={true} path="/about" component={AboutPage} />
+            <Route exact={true} path="/kana" component={KanaPage} />
             <Route component={NotFoundPage} />
           </Switch>
           <div className="g-24 content-bottom" />

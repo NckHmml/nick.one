@@ -122,8 +122,9 @@ module.exports = (environment) => {
       }),
       new CheckerPlugin(),
       new DefinePlugin({
-        "DEBUG": JSON.stringify(environment !== "production"),
-        "BROWSER": true,
+        // Put it under "global" so that it works both in NodeJS and in browsers (see index.d.ts)
+        "global.DEBUG": JSON.stringify(environment !== "production"),
+        "global.BROWSER": true,
       }),
       new MiniCssExtractPlugin({
         filename: "[name].[contenthash].css",

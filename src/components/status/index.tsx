@@ -8,7 +8,7 @@ interface IStatusProps {
 export class Status extends React.Component<IStatusProps> {
   private renderWithStatus = (routeProps: RouteComponentProps<{}, StaticContext>) => {
     const { code, children } = this.props;
-    if (!BROWSER) {
+    if (!global.BROWSER) {
       routeProps.staticContext.statusCode = code;
     }
     return children;

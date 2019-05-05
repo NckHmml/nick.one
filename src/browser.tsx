@@ -8,14 +8,14 @@ import "core-js/es6/set";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { AppComponent } from "./app";
+import { App } from "./app";
 import { BrowserRouter } from "react-router-dom";
 
 
 // Start rendering application
 ReactDOM.hydrate(
   <BrowserRouter>
-    <AppComponent />
+    <App />
   </BrowserRouter>,
   document.getElementById("entry")
 );

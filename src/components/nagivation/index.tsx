@@ -44,7 +44,8 @@ export class Navigation extends React.Component<{}, INavigationState> {
             </div>
             <div className="nav-items group">
               <div className="nav-item g-24"><Link to="/">Home</Link></div>
-              <div className="nav-item g-24"><Link to="/test">Test</Link></div>
+              <div className="nav-item g-24"><Link to="/kana">Kana</Link></div>
+              <div className="nav-item g-24"><Link to="/test">About</Link></div>
             </div>
           </div>
           <div

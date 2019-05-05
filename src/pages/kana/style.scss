@@ -1,0 +1,59 @@
+.kana {
+  h1, h2 {
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-left: 5px solid $cl-primary;
+  }
+
+  h2 .c-checkbox {
+    font-size: $fz-primary;
+    float: right;
+  }
+
+  &-container {
+    box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
+  }
+
+  &-group {
+    line-height: 30px;
+
+    & .c-checkbox {
+      float: right;
+    }
+  }
+
+  &-list {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    li {
+      display: inline-block;
+
+      span {
+        display: inline-block;
+        background: lighten($cl-grey, $cl-shade-2);
+        line-height: 22px;
+        width: 22px;
+        border-radius: 2px;
+        text-align: center;
+        margin-right: 10px;
+
+        & + span {
+          display: none;
+        }
+      }
+      &:hover {
+        span {
+          cursor: default;
+          display: none;
+
+          & + span {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}
