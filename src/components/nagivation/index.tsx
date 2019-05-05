@@ -13,6 +13,10 @@ export class Navigation extends React.Component<{}, INavigationState> {
 
   private collapse = () => this.setState({ open: !this.state.open });
 
+  public componentDidMount() {
+    this.setState({ open: document.body.clientWidth > 780 });
+  }
+
   public render() {
     const { open } = this.state;
     const rootClass = ClassNames({

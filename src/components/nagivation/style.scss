@@ -76,6 +76,7 @@
     display: block;
     left: -$sz-nav;
     transition: left 500ms ease;
+    z-index: $z-nav;
   }
 
   &-content {

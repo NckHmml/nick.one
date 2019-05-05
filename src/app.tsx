@@ -21,6 +21,7 @@ export class AppComponent extends React.Component {
             <Route exact={true} path="/test" component={TestPage} />
             <Route component={NotFoundPage} />
           </Switch>
+          <div className="g-24 content-bottom" />
         </div>
       </>
     );
