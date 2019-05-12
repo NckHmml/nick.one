@@ -1,0 +1,18 @@
+button,
+.c-button {
+  display: inline-block;
+  padding: 15px;
+  background: $cl-primary;
+  border: none;
+  border-radius: 2px;
+  color: #FFF;
+  transition: background-color 300ms;
+  width: 100%;
+  font-size: $fz-h4;
+  text-transform: uppercase;
+
+  &:hover {
+    background: lighten($cl-primary, $cl-shade-1);
+    cursor: pointer;
+  }
+}

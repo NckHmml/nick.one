@@ -119,6 +119,7 @@ export class KanaPage extends React.Component {
               />
             </h2>
             {this.renderKanaGroups(true)}
+
             <h2>
               Katakana sets
               <Checkbox
@@ -128,6 +129,11 @@ export class KanaPage extends React.Component {
               />
             </h2>
             {this.renderKanaGroups(false)}
+
+            <h2>Other settings</h2>
+            <div className="g-10 g-md-6">
+              <button>Start</button>
+            </div>
           </div>
         </div>
       </>
