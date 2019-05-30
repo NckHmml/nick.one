@@ -4,7 +4,9 @@ import Helmet from "react-helmet";
 
 import { KanaStore } from "./redux/kana";
 
+import { Background } from "./components/background";
 import { Navigation } from "./components/nagivation";
+
 import { NotFoundPage } from "./pages/notFound";
 import { HomePage } from "./pages/home";
 import { AboutPage } from "./pages/about";
@@ -29,6 +31,7 @@ export class App extends React.Component {
           </Switch>
           <div className="g-24 content-bottom" />
         </div>
+        <Background />
       </>
     );
   }

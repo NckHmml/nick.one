@@ -30,6 +30,7 @@
     box-sizing: border-box;
     transition: margin 1s;
     border-radius: 5px;
+    background: #FFF;
 
     &:hover {
       margin-top: -8px;
@@ -46,6 +47,7 @@
     height: 400px;
     overflow: hidden;
     position: relative;
+    box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
 
     img {
       position: absolute;

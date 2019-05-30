@@ -15,10 +15,12 @@ html, body, #entry {
 
 .content {
   box-sizing: border-box;
-  float: right;
   height: 100%;
   width: 100%;
   transition: padding 500ms ease;
+  position: absolute;
+  top: 0;
+  z-index: 1;
 
   .nav:not(.open) + & .safe-area {
     padding-left: env(safe-area-inset-left);

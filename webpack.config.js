@@ -1,5 +1,5 @@
 const { CheckerPlugin } = require("awesome-typescript-loader");
-const { DefinePlugin } = require("webpack");
+const { DefinePlugin, SourceMapDevToolPlugin, EvalSourceMapDevToolPlugin } = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -10,8 +10,18 @@ const magicImporter = require("node-sass-magic-importer");
 /**
  * Generates the webpack config
  * @param {string} environment environment to be build for, can be either development or production
- */ 
+ */
 module.exports = (environment) => {
+  // Use faster minification for development
+  const devtoolPlugin = environment === "development" ?
+    new EvalSourceMapDevToolPlugin({
+      exclude: /(vendor|polyfill)(.*)?.js/
+    }) : 
+    new SourceMapDevToolPlugin({
+      filename: "[name].map.js",
+      exclude: /(vendor|polyfill)(.*)?.js/
+    })
+
   return {
     mode: environment,
     watch: environment === "development",
@@ -19,12 +29,12 @@ module.exports = (environment) => {
       `${__dirname}/src/browser.tsx`,
       `${__dirname}/src/style/main.scss`,
     ],
-    
+
     output: {
       path: `${__dirname}/dist`,
       publicPath: "dist",
       // [contenthash] does not work on development mode, thus disable it (we don't really need it local anyways)
-      filename: `[name]${environment === "development" ? "" : ".[contenthash]"}.js`, 
+      filename: `[name]${environment === "development" ? "" : ".[contenthash]"}.js`,
       chunkFilename: `[name]${environment === "development" ? "" : ".[contenthash]"}.js`
     },
 
@@ -39,15 +49,15 @@ module.exports = (environment) => {
       }
     },
 
-    // Use faster minification for development
-    devtool: environment === "development" ? "eval-source-map" : "source-map",
-
     module: {
       rules: [
         {
           test: /\.tsx?$/,
           exclude: /node_modules/,
-          loader: "awesome-typescript-loader"
+          loader: "awesome-typescript-loader",
+          options: {
+            configFileName: "tsconfig.webpack.json"
+          }
         },
         {
           test: /\.hbs$/,
@@ -130,6 +140,7 @@ module.exports = (environment) => {
         filename: "[name].[contenthash].css",
         chunkFilename: "[name].[contenthash].css"
       }),
+      devtoolPlugin,
     ]
   }
 }

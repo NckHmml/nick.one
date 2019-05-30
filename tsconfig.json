@@ -29,28 +29,5 @@
   ],
   "exclude": [
     "node_modules"
-  ],
-  "awesomeTypescriptLoaderOptions": {
-    "useCache": true,
-    "useBabel": true,
-    "babelOptions": {
-      "babelrc": false,
-      "presets": [
-        "@babel/preset-react",
-        [
-          "@babel/preset-env",
-          {
-            "useBuiltIns": "usage",
-            "targets": {
-              "browsers": "last 2 versions, ie 11",
-            },
-            "modules": "commonjs"
-          }
-        ]
-      ]   
-    },
-    "babelCore": "@babel/core",
-    "forceIsolatedModules": true,
-    "reportFiles": ["src/**/*.{ts,tsx,json}"]
-  }
+  ]
 }

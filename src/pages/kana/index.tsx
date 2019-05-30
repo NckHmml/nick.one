@@ -131,7 +131,7 @@ export class KanaPage extends React.Component {
             {this.renderKanaGroups(false)}
 
             <h2>Other settings</h2>
-            <div className="g-10 g-md-6">
+            <div className="g-10 g-md-6 p-v-3">
               <button>Start</button>
             </div>
           </div>

@@ -1,0 +1,28 @@
+$padding: 10;
+
+@for $i from 1 through $padding {
+  .p {
+    &-t-#{$i} {
+      padding-top: $i * 10px;
+    }
+    &-b-#{$i} {
+      padding-bottom: $i * 10px;
+    }
+    &-l-#{$i} {
+      padding-left: $i * 10px;
+    }
+    &-r-#{$i} {
+      padding-right: $i * 10px;
+    }
+    // Horizontal
+    &-h-#{$i} {
+      padding-left: $i * 10px;
+      padding-right: $i * 10px;
+    }
+    // Vertical
+    &-v-#{$i} {
+      padding-top: $i * 10px;
+      padding-bottom: $i * 10px;
+    }
+  }
+}

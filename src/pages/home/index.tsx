@@ -43,7 +43,7 @@ export class HomePage extends React.Component {
                 <h2 className="text-right">About this website</h2>
                 <p>
                   This website is a single page application (SPA) created with React, Typescript and server-sided rendering through NodeJS.
-                  The server-sided rendering is implemented for SEO optimization as the only search engine which crawl a SPA without any problems, is Google.
+                  The server-sided rendering is implemented for SEO optimization as the only search engine which can crawl a SPA without any problems, is Google.
                   And as we don't want to limit our exposure to just Google, we want our SPA to display content before the Javascript is executed on the browser.
                   To reduce loading times, all pages are generated once, and then cached by Nginx.
                 </p>
