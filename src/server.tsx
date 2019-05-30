@@ -5,6 +5,9 @@ import * as fs from "fs";
 import * as express from "express";
 import * as React from "react";
 import * as Handlebars from "handlebars";
+import * as webpack from "webpack";
+import * as webpackDev from "webpack-dev-middleware";
+import * as webpackHot from "webpack-hot-middleware";
 import { Request, Response } from "express";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
@@ -15,7 +18,10 @@ import { App } from "./app";
 global.BROWSER = false;
 const server = express();
 
-const indexHtml = fs.readFileSync(path.resolve(__dirname, "../dist/index.html"));
+const indexPath = path.resolve(__dirname, "../dist/index.html");
+const indexHtml = fs.existsSync(indexPath) ?
+  fs.readFileSync(indexPath) :
+  "";
 const indexTemplate = Handlebars.compile(indexHtml.toString());
 
 const renderTemplate = (context: {}) => {
@@ -49,14 +55,30 @@ const renderReact: express.RequestHandler = (req: Request, res: Response) => {
 // index should alway go to react (else it will take the static dist/index.html)
 server.get("/", renderReact);
 server.get("/index.html", renderReact);
+
+// Webpack-dev
+if (process.env.NODE_ENV !== "production") {
+  const config = require("../webpack.config.js")("development");
+  const compiler = webpack(config);
+  server.use(webpackDev(compiler, {
+    publicPath: "/",
+    writeToDisk: true // Needed for the SSR
+  }));
+  server.use(webpackHot(compiler));
+  server.get("/dist/*", (req, res) => {
+    res.redirect(req.path.substr(5));
+  });
+}
 // Host /dist as static
-server.use(express.static(path.resolve(__dirname, "../dist")));
+if (process.env.NODE_ENV === "production") {
+  server.use(express.static(path.resolve(__dirname, "../dist")));
+}
 // Static for dev, prod uses nginx
 if (process.env.NODE_ENV !== "production") {
   server.use("/static", express.static(path.resolve(__dirname, "../static")));
 }
 // All other request try to handle by React
-server.get("/*", renderReact);
+// server.get("/*", renderReact);
 
 const port = 8080;
 server.listen(port, () => {

@@ -5,10 +5,8 @@
   "main": "src/server.tsx",
   "sideEffects": false,
   "scripts": {
-    "webpack-dev": "webpack --env=development",
-    "webpack-prod": "webpack --env=production",
-    "start": "ts-node -r tsconfig-paths/register src/server.tsx",
-    "watch": "ts-node-dev -r tsconfig-paths/register --no-notify src/server.tsx"
+    "prod": "webpack --env=production",
+    "start": "ts-node -r tsconfig-paths/register src/server.tsx"
   },
   "repository": {
     "type": "git",
@@ -21,11 +19,14 @@
     "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
+    "@hot-loader/react-dom": "^16.8.6",
     "@types/express": "^4.16.1",
     "@types/react": "^16.8.13",
     "@types/react-dom": "^16.8.4",
     "@types/react-helmet": "^5.0.8",
     "@types/react-router-dom": "^4.3.2",
+    "@types/webpack-dev-middleware": "^2.0.2",
+    "@types/webpack-hot-middleware": "^2.16.5",
     "autoprefixer": "^9.5.1",
     "awesome-typescript-loader": "^5.2.1",
     "clean-webpack-plugin": "^2.0.1",
@@ -37,7 +38,7 @@
     "handlebars-loader": "^1.7.1",
     "html-webpack-plugin": "^3.2.0",
     "localforage": "^1.7.3",
-    "mini-css-extract-plugin": "^0.6.0",
+    "mini-css-extract-plugin": "^0.7.0",
     "mobx": "^4.9.4",
     "mobx-react": "^5.4.3",
     "node-sass": "^4.11.0",
@@ -46,14 +47,16 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
+    "react-hot-loader": "^4.8.8",
     "react-router-dom": "^5.0.0",
     "sass-loader": "^7.1.0",
     "three": "^0.104.0",
     "ts-node": "^8.1.0",
-    "ts-node-dev": "^1.0.0-pre.32",
     "tsconfig-paths": "^3.8.0",
     "typescript": "^3.4.3",
     "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.0"
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-middleware": "^3.7.0",
+    "webpack-hot-middleware": "^2.25.0"
   }
 }

@@ -1,5 +1,5 @@
 const { CheckerPlugin } = require("awesome-typescript-loader");
-const { DefinePlugin, SourceMapDevToolPlugin, EvalSourceMapDevToolPlugin } = require("webpack");
+const { DefinePlugin, SourceMapDevToolPlugin, EvalSourceMapDevToolPlugin, HotModuleReplacementPlugin } = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -16,26 +16,55 @@ module.exports = (environment) => {
   const devtoolPlugin = environment === "development" ?
     new EvalSourceMapDevToolPlugin({
       exclude: /(vendor|polyfill)(.*)?.js/
-    }) : 
+    }) :
     new SourceMapDevToolPlugin({
       filename: "[name].map.js",
       exclude: /(vendor|polyfill)(.*)?.js/
-    })
+    });
+
+  // Entry
+  const entry = [
+    `${__dirname}/src/browser.tsx`,
+    `${__dirname}/src/style/main.scss`,
+  ];
+  if (environment === "development") {
+    entry.unshift("webpack-hot-middleware/client")
+  }
+
+  // Plugins
+  const plugins = [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      inject: false,
+      template: "templates/index.hbs"
+    }),
+    new CheckerPlugin(),
+    new DefinePlugin({
+      // Put it under "global" so that it works both in NodeJS and in browsers (see index.d.ts)
+      "global.DEBUG": JSON.stringify(environment === "development"),
+      "global.BROWSER": true,
+    }),
+    new MiniCssExtractPlugin({
+      filename: `[name]${environment === "development" ? "" : ".[contenthash]"}.css`,
+      chunkFilename: `[name]${environment === "development" ? "" : ".[contenthash]"}.css`
+    }),
+    devtoolPlugin,
+  ];
+  if (environment === "development") {
+    plugins.push(new HotModuleReplacementPlugin());
+  }
 
   return {
     mode: environment,
     watch: environment === "development",
-    entry: [
-      `${__dirname}/src/browser.tsx`,
-      `${__dirname}/src/style/main.scss`,
-    ],
+    entry,
 
     output: {
       path: `${__dirname}/dist`,
-      publicPath: "dist",
+      publicPath: "dist/",
       // [contenthash] does not work on development mode, thus disable it (we don't really need it local anyways)
-      filename: `[name]${environment === "development" ? "" : ".[contenthash]"}.js`,
-      chunkFilename: `[name]${environment === "development" ? "" : ".[contenthash]"}.js`
+      filename: `[name]${environment === "development" ? "" : ".[hash]"}.js`,
+      chunkFilename: `[name]${environment === "development" ? "" : ".[hash]"}.js`
     },
 
     resolve: {
@@ -45,7 +74,8 @@ module.exports = (environment) => {
         "node_modules"
       ],
       alias: {
-        "~": `${__dirname}/src`
+        "~": `${__dirname}/src`,
+        "react-dom": environment === "development" ? "@hot-loader/react-dom" : "react-dom"
       }
     },
 
@@ -56,7 +86,10 @@ module.exports = (environment) => {
           exclude: /node_modules/,
           loader: "awesome-typescript-loader",
           options: {
-            configFileName: "tsconfig.webpack.json"
+            configFileName: "tsconfig.webpack.json",
+            babelOptions: {
+              plugins: environment === "development" ? ["react-hot-loader/babel"] : [] // Else it polutes the prod build
+            }
           }
         },
         {
@@ -67,9 +100,18 @@ module.exports = (environment) => {
           }
         },
         {
+          test: /\.css$/,
+          loader: "style-loader"
+        },
+        {
           test: /\.scss$/,
           use: [
-            MiniCssExtractPlugin.loader,
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                hmr: environment === "development"
+              }
+            },
             {
               loader: "css-loader",
               options: {
@@ -87,7 +129,7 @@ module.exports = (environment) => {
                 includePaths: [
                   `${__dirname}/src/style`
                 ],
-                sourceMap: environment === "local"
+                sourceMap: environment === "development"
               }
             }
           ]
@@ -96,7 +138,7 @@ module.exports = (environment) => {
     },
 
     optimization: {
-      minimize: environment !== "local",
+      minimize: environment !== "development",
       splitChunks: {
         chunks: "async",
         minSize: 0,
@@ -124,23 +166,6 @@ module.exports = (environment) => {
       }
     },
 
-    plugins: [
-      new CleanWebpackPlugin(),
-      new HtmlWebpackPlugin({
-        inject: false,
-        template: "templates/index.hbs"
-      }),
-      new CheckerPlugin(),
-      new DefinePlugin({
-        // Put it under "global" so that it works both in NodeJS and in browsers (see index.d.ts)
-        "global.DEBUG": JSON.stringify(environment !== "production"),
-        "global.BROWSER": true,
-      }),
-      new MiniCssExtractPlugin({
-        filename: "[name].[contenthash].css",
-        chunkFilename: "[name].[contenthash].css"
-      }),
-      devtoolPlugin,
-    ]
+    plugins,
   }
 }

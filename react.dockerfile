@@ -12,4 +12,4 @@ COPY webpack.config.js .
 COPY ./src ./src
 COPY ./templates ./templates
 # Build through webpack
-RUN npm run webpack-prod
+RUN npm run prod

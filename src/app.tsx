@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Switch, Route } from "react-router";
 import Helmet from "react-helmet";
+import { hot } from "react-hot-loader";
 
 import { KanaStore } from "./redux/kana";
 
@@ -36,3 +37,5 @@ export class App extends React.Component {
     );
   }
 }
+
+export const HotApp = hot(module)(App);

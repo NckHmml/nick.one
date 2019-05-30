@@ -8,14 +8,16 @@ import "core-js/es6/set";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { App } from "./app";
+import { App, HotApp } from "./app";
 import { BrowserRouter } from "react-router-dom";
 
+// Check if HMR should be enabled
+const Entry = global.DEBUG ? HotApp : App;
 
 // Start rendering application
 ReactDOM.hydrate(
   <BrowserRouter>
-    <App />
+    <Entry />
   </BrowserRouter>,
   document.getElementById("entry")
 );
