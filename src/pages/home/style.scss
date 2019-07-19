@@ -21,7 +21,7 @@
   }
 
   > div {
-    padding-top: 15px;
+    padding-top: 20px;
   }
 
   &-item {
@@ -31,10 +31,11 @@
     transition: margin 1s;
     border-radius: 5px;
     background: #FFF;
+    text-align: justify;
 
     &:hover {
-      margin-top: -8px;
-      margin-bottom: 8px;
+      margin-top: -10px;
+      margin-bottom: 10px;
 
       h1, h2 {
         color: $cl-primary;

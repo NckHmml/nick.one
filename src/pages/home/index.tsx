@@ -31,7 +31,7 @@ export class HomePage extends React.Component {
                   I'm Nick Hummel, I have a passion for coding and solving problems.
                   I am a creative, abstract and theoretical thinker and have the ability to turn ideas into solutions.
                   I have extensive development experience with .NET technology and NodeJS be it either MVC or RESTful, I can also find my way around in Java, Scala and PHP.
-                  For frontend development I specialize in React with Typescript and also have some experience with Angular, but I find it easy to adapt myself to any other framework.
+                  For frontend development I specialize in React with Typescript and also have some experience with Angular, but I find it easy to adapt to any other framework.
                 </p>
               </div>
             </div>

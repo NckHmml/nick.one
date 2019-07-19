@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  nginx:
+    image: nckhmml/portfolio-nginx
+    environment:
+      NGINX_PORT: 80
+    ports:
+      - "80:80"
+    depends_on:
+      - react
+  react:
+    image: nckhmml/portfolio
+    environment:
+      NODE_ENV: production
+    command: npm run start

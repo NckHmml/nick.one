@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as Three from "three";
+import { WebGlAvailable } from "~/helpers/global";
 
 export class Background extends React.Component {
   private camera: Three.PerspectiveCamera;
@@ -10,7 +11,8 @@ export class Background extends React.Component {
     mesh: Three.Mesh,
     rotate: {
       x: number,
-      y: number
+      y: number,
+      z: number,
     }
   }>();
 
@@ -19,6 +21,7 @@ export class Background extends React.Component {
     this.cubes.forEach(cube => {
       cube.mesh.rotateX(cube.rotate.x);
       cube.mesh.rotateY(cube.rotate.y);
+      cube.mesh.rotateZ(cube.rotate.z);
     });
     requestAnimationFrame(this.renderFrame);
   }
@@ -36,13 +39,15 @@ export class Background extends React.Component {
       cube.position.setY(Math.random() * window.innerHeight - window.innerHeight / 2);
       cube.position.setZ(Math.random() * 300);
       this.scene.add(cube);
-      const xSpeed =  Math.random() * 0.016 - 0.008;
-      const ySpeed =  Math.random() * 0.016 - 0.008;
+      const xSpeed = Math.random() * 0.016 - 0.008;
+      const ySpeed = Math.random() * 0.016 - 0.008;
+      const zSpeed = Math.random() * 0.016 - 0.008;
       this.cubes.push({
         mesh: cube,
         rotate: {
           x: xSpeed < 0 ? xSpeed - 0.002 : xSpeed + 0.002,
-          y: ySpeed < 0 ? ySpeed - 0.002 : ySpeed + 0.002
+          y: ySpeed < 0 ? ySpeed - 0.002 : ySpeed + 0.002,
+          z: zSpeed < 0 ? zSpeed - 0.002 : zSpeed + 0.002
         }
       });
     }
@@ -65,19 +70,21 @@ export class Background extends React.Component {
 
   public componentDidMount() {
     // Initialize here, else we break the server sided rendering
-    this.scene = new Three.Scene();
-    this.camera = new Three.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-    this.camera.position.set(0, 0, 500);
+    if (WebGlAvailable) {
+      this.scene = new Three.Scene();
+      this.camera = new Three.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+      this.camera.position.set(0, 0, 500);
 
-    this.renderer = new Three.WebGLRenderer({ alpha: true });
-    this.renderer.shadowMap.enabled = true;
-    this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.div.append(this.renderer.domElement);
+      this.renderer = new Three.WebGLRenderer({ alpha: true });
+      this.renderer.shadowMap.enabled = true;
+      this.renderer.setPixelRatio(window.devicePixelRatio);
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+      this.div.append(this.renderer.domElement);
 
-    this.renderCubes();
-    this.renderLight();
-    this.renderFrame();
+      this.renderCubes();
+      this.renderLight();
+      this.renderFrame();
+    }
   }
 
   public render() {

@@ -10,3 +10,12 @@ export const ClassNames = (names: { [key: string]: boolean }): string => {
   }
   return classes.join(" ");
 };
+
+export const WebGlAvailable: boolean = (() => {
+  try {
+    const canvas: HTMLCanvasElement = document.createElement('canvas');
+    return Boolean(window.WebGLRenderingContext && (canvas.getContext("webgl") || canvas.getContext("experimental-webgl")));
+  } catch (e) {
+    return false;
+  }
+})();

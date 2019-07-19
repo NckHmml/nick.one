@@ -9,6 +9,7 @@ RUN npm i --quiet
 # Prepare for build
 COPY tsconfig.json .
 COPY webpack.config.js .
+COPY tsconfig.webpack.json .
 COPY ./src ./src
 COPY ./templates ./templates
 # Build through webpack
