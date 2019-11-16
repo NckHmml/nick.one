@@ -1,7 +1,7 @@
 const { CheckerPlugin } = require("awesome-typescript-loader");
 const { DefinePlugin, SourceMapDevToolPlugin, EvalSourceMapDevToolPlugin, HotModuleReplacementPlugin } = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const autoprefixer = require("autoprefixer");
 const cssnano = require("cssnano");
@@ -25,7 +25,7 @@ module.exports = (environment) => {
   // Entry
   const entry = [
     `${__dirname}/src/browser.tsx`,
-    `${__dirname}/src/style/main.scss`,
+    `${__dirname}/src/style/main.scss`
   ];
   if (environment === "development") {
     entry.unshift("webpack-hot-middleware/client")
@@ -146,19 +146,11 @@ module.exports = (environment) => {
         chunks: "async",
         minSize: 0,
         minChunks: Infinity,
-        name: false,
         cacheGroups: {
-          vendor: {
+          common: {
             test: /[\\/]node_modules[\\/]/,
-            priority: -30,
-            name: "vendor",
-            chunks: "all",
-            enforce: true
-          },
-          three: {
-            test: /[\\/]node_modules[\\/]three/,
             priority: -20,
-            name: "three",
+            name: "vendor",
             chunks: "all",
             enforce: true
           },
@@ -166,6 +158,13 @@ module.exports = (environment) => {
             test: /[\\/](core-js|@?babel)/,
             priority: -10,
             name: "polyfill",
+            chunks: "all",
+            enforce: true
+          },
+          three: {
+            test: /[\\/]node_modules[\\/]three/ ,
+            priority: 0,
+            name: "three",
             chunks: "all",
             enforce: true
           },

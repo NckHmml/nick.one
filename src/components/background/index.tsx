@@ -43,7 +43,7 @@ export class Background extends React.Component {
       const zSpeed = Math.random() * 0.016 - 0.008;
       this.cubes.push({
         mesh: cube,
-        rotate: new Three.Vector3 (
+        rotate: new Three.Vector3(
           xSpeed < 0 ? xSpeed - 0.002 : xSpeed + 0.002,
           ySpeed < 0 ? ySpeed - 0.002 : ySpeed + 0.002,
           zSpeed < 0 ? zSpeed - 0.002 : zSpeed + 0.002
@@ -94,7 +94,7 @@ export class Background extends React.Component {
   }
 
   public componentDidMount() {
-    System.import(/*webpackChunkName : "three" */ "three").then((Three: any) => {
+    System.import(/*webpackChunkName: "three" */ "three").then((Three: any) => {
       window.Three = Three;
       // Initialize here, else we break the server sided rendering
       if (WebGlAvailable) {
@@ -106,13 +106,13 @@ export class Background extends React.Component {
         this.scene = new Three.Scene();
         this.camera = new Three.PerspectiveCamera(75, this.size.x / this.size.y, 1, 10000);
         this.camera.position.set(0, 0, 500);
-  
+
         this.renderer = new Three.WebGLRenderer({ alpha: true });
         this.renderer.shadowMap.enabled = true;
         this.renderer.setPixelRatio(window.devicePixelRatio || 1);
         this.renderer.setSize(this.size.x, this.size.y);
         this.div.append(this.renderer.domElement);
-  
+
         this.renderCubes();
         this.renderLight();
         this.renderFrame();

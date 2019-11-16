@@ -1,0 +1,11 @@
+@mixin dark-mode {
+  .dark-mode & {
+    @content;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html:not(.light-mode) & {
+      @content;
+    }
+  }
+}

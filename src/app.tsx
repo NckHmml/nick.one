@@ -1,9 +1,11 @@
 import * as React from "react";
 import { Switch, Route, RouteComponentProps, withRouter } from "react-router";
+import { observer } from "mobx-react";
 import Helmet from "react-helmet";
 import { hot } from "react-hot-loader";
 
 import { KanaStore } from "./redux/kana";
+import { GlobalStore } from "./redux/global";
 
 import { Background } from "./components/background";
 import { NavigationComponent as Navigation } from "./components/nagivation";
@@ -12,9 +14,12 @@ import { NotFoundPage } from "./pages/notFound";
 import { HomePage } from "./pages/home";
 import { AboutPage } from "./pages/about";
 import { KanaPage } from "./pages/kana";
+import { ClassNames } from "./helpers/global";
 
+@observer
 export class App extends React.Component<RouteComponentProps<{}>> {
   public static kanaStore = new KanaStore();
+  public static globalStore = new GlobalStore();
 
   public componentDidUpdate(prevProps: RouteComponentProps<{}>) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
@@ -23,11 +28,18 @@ export class App extends React.Component<RouteComponentProps<{}>> {
   }
 
   public render() {
+    const htmlClass = ClassNames({
+      "dark-mode": App.globalStore.darkmode,
+      "light-mode": !App.globalStore.darkmode
+    });
+
     return (
       <>
         <Helmet
           titleTemplate="Portfolio - %s"
-        />
+        >
+          <html lang="en" className={htmlClass} />
+        </Helmet>
         <Navigation />
         <div className="content">
           <Switch>

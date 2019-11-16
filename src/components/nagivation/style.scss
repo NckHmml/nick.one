@@ -111,6 +111,25 @@
       width: 100%;
       box-sizing: border-box;
       line-height: 26px;
+
+      @include dark-mode {
+        color: #FFF;
+      }
+    }
+
+    &-checkbox {
+      padding: 20px 30px;
+      
+      .c-checkbox {
+        label {
+          color: #FFF;
+        }
+
+        &-toggle {
+          float: left;
+          margin-right: 10px;
+        }
+      }
     }
 
     &::after {

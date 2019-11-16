@@ -16,7 +16,7 @@ a[href] {
   color: $cl-secondary;
   transition: color 500ms;
 
-  @media (prefers-color-scheme: dark) {
+  @include dark-mode {
     color: $cl-tertiary;
   }
 

@@ -1,7 +1,7 @@
 body {
   font-family: 'Roboto Condensed', 'sans-sarif';
 
-  @media (prefers-color-scheme: dark) {
+  @include dark-mode {
     background: #000;
   }
 }

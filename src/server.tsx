@@ -65,9 +65,6 @@ if (process.env.NODE_ENV !== "production") {
     writeToDisk: true // Needed for the SSR
   }));
   server.use(webpackHot(compiler));
-  server.get("/dist/*", (req, res) => {
-    res.redirect(req.path.substr(5));
-  });
 }
 // Host /dist as static
 if (process.env.NODE_ENV === "production") {
@@ -76,6 +73,7 @@ if (process.env.NODE_ENV === "production") {
 // Static for dev, prod uses nginx
 if (process.env.NODE_ENV !== "production") {
   server.use("/static", express.static(path.resolve(__dirname, "../static")));
+  server.use("/dist", express.static(path.resolve(__dirname, "../dist")));
 }
 // All other request try to handle by React
 server.get("/*", renderReact);

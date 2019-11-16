@@ -1,12 +1,17 @@
 import * as React from "react";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
+import { observer } from "mobx-react";
+
 import { ClassNames } from "~/helpers/global";
+import { Checkbox } from "~/components/checkbox";
+import { App } from "~/app";
 
 interface INavigationState {
   open: boolean;
   pristine: boolean;
 }
 
+@observer
 class Navigation extends React.Component<RouteComponentProps<{}>, INavigationState> {
   public state: INavigationState = {
     open: true,
@@ -16,6 +21,11 @@ class Navigation extends React.Component<RouteComponentProps<{}>, INavigationSta
   private collapse = () => this.setState({ open: !this.state.open, pristine: false });
 
   private isMobile = () => document.body.clientWidth <= 780;
+
+  private toggleDarkmode = () => {
+    App.globalStore.darkmodeStored = true;
+    App.globalStore.darkmode = !App.globalStore.darkmode;
+  }
 
   public componentDidUpdate(prevProps: RouteComponentProps<{}>) {
     const { open } = this.state;
@@ -58,6 +68,15 @@ class Navigation extends React.Component<RouteComponentProps<{}>, INavigationSta
               <div className="nav-item g-24"><Link to="/">Home</Link></div>
               <div className="nav-item g-24"><Link to="/kana">Kana</Link></div>
               <div className="nav-item g-24"><Link to="/test">About</Link></div>
+              <div className="nav-item g-24">
+                <div className="nav-item-checkbox">
+                  <Checkbox
+                    title="Toggle dark mode"
+                    defaultValue={App.globalStore.darkmode}
+                    onChange={this.toggleDarkmode}
+                  />
+                </div>
+              </div>
             </div>
           </div>
           <div

@@ -2,7 +2,6 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "moduleResolution": "node",
     "isolatedModules": true,
     "importHelpers": true,
     "experimentalDecorators": true,

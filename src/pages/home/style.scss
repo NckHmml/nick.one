@@ -9,7 +9,7 @@
       color: $cl-text;
       text-decoration: none;
 
-      @media (prefers-color-scheme: dark) {
+      @include dark-mode {
         color: #FFF;
       }
     }
@@ -43,7 +43,7 @@
     background: #FFF;
     text-align: justify;
 
-    @media (prefers-color-scheme: dark) {
+    @include dark-mode {
       background: $cl-d-background;
       color: #FFF;
     }
@@ -59,6 +59,10 @@
 
       h1, h2 > a {
         color: $cl-primary;
+
+        @include dark-mode {
+          color: $cl-primary;
+        }
       }
     }
   }
