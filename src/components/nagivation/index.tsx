@@ -1,27 +1,39 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { ClassNames } from "~/helpers/global";
 
 interface INavigationState {
   open: boolean;
+  pristine: boolean;
 }
 
-export class Navigation extends React.Component<{}, INavigationState> {
+class Navigation extends React.Component<RouteComponentProps<{}>, INavigationState> {
   public state: INavigationState = {
-    open: true
+    open: true,
+    pristine: true,
   };
 
-  private collapse = () => this.setState({ open: !this.state.open });
+  private collapse = () => this.setState({ open: !this.state.open, pristine: false });
+
+  private isMobile = () => document.body.clientWidth <= 780;
+
+  public componentDidUpdate(prevProps: RouteComponentProps<{}>) {
+    const { open } = this.state;
+    if (open && this.isMobile() && this.props.location.pathname !== prevProps.location.pathname) {
+      this.setState({ open: false });
+    }
+  }
 
   public componentDidMount() {
-    this.setState({ open: document.body.clientWidth > 780 });
+    this.setState({ open: !this.isMobile() });
   }
 
   public render() {
-    const { open } = this.state;
+    const { open, pristine } = this.state;
     const rootClass = ClassNames({
       "nav": true,
-      "open": open
+      "open": open,
+      "pristine": pristine
     });
 
     return (
@@ -52,9 +64,12 @@ export class Navigation extends React.Component<{}, INavigationState> {
             className="nav-collapse"
             onClick={this.collapse}
             title={open ? "collapse navigation" : "expand navigation"}
-          >{open ? "<" : ">"}</div>
+          ><span>&lt;</span></div>
         </div>
       </nav>
     );
   }
 }
+
+
+export const NavigationComponent = withRouter(Navigation);

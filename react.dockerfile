@@ -4,7 +4,8 @@ WORKDIR /usr/app
 
 # NPM Install
 COPY package.json .
-RUN npm i --quiet
+COPY package-lock.json .
+RUN npm ci --quiet
 
 # Prepare for build
 COPY tsconfig.json .

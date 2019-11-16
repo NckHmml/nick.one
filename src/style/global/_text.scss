@@ -16,6 +16,10 @@ a[href] {
   color: $cl-secondary;
   transition: color 500ms;
 
+  @media (prefers-color-scheme: dark) {
+    color: $cl-tertiary;
+  }
+
   &:hover {
     color: $cl-primary;
   }

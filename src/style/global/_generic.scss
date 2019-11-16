@@ -1,5 +1,9 @@
 body {
   font-family: 'Roboto Condensed', 'sans-sarif';
+
+  @media (prefers-color-scheme: dark) {
+    background: #000;
+  }
 }
 
 html, body, #entry {

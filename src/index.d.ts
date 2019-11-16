@@ -9,5 +9,6 @@ declare namespace NodeJS {
 }
 
 interface Window {
-  [key: string]: any
+  [key: string]: any;
+  Three: typeof import("three");
 }

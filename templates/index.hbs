@@ -14,9 +14,9 @@
 <body>
   <div id="entry" class="group">\{{{reactDom}}}</div>
 
-  {{#each htmlWebpackPlugin.files.js}}
-  <script async="async" defer="defer" src="{{trim this 4}}"></script>
-  {{/each}}
+  <script src="{{trim htmlWebpackPlugin.files.chunks.main.entry 4}}"></script>
+  <script async="async" src="{{trim htmlWebpackPlugin.files.chunks.vendor.entry 4}}"></script>
+  <script async="async" src="{{trim htmlWebpackPlugin.files.chunks.polyfill.entry 4}}"></script>
 </body>
 
 </html>

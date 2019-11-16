@@ -40,7 +40,9 @@ export class HomePage extends React.Component {
           <div className="g-24">
             <div className="g-24 g-md-p-8 g-md-16 g-lg-p-12 g-lg-12">
               <div className="home-item">
-                <h2 className="text-right">About this website</h2>
+                <h2 className="text-right">
+                  <Link to="/about">About this website</Link>
+                </h2>
                 <p>
                   This website is a single page application (SPA) created with React, Typescript and server-sided rendering through NodeJS.
                   The server-sided rendering is implemented for SEO optimization as the only search engine which can crawl a SPA without any problems, is Google.
@@ -55,7 +57,9 @@ export class HomePage extends React.Component {
           <div className="g-24">
             <div className="g-24 g-md-16 g-lg-12">
               <div className="home-item ">
-                <h2 className="text-left">Kana learning tool</h2>
+                <h2 className="text-left">
+                  <Link to="/kana">Kana learning tool</Link>
+                </h2>
                 <p>
                   Before I left to Tokyo for an internship, I wanted at least to be able to read some of the basic Japanese characters.
                   After a bit of research, I found that Hiragana and Katakana are the most common and easiest to learn.

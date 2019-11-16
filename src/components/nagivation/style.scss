@@ -13,6 +13,10 @@
   &.open &-collapse {
     border-radius: 3px 0 0 3px;
     right: 0;
+
+    span {
+      transform: none;
+    }
   }
 
   &-collapse {
@@ -26,6 +30,11 @@
     font-size: $fz-h3;
     text-align: center;
     border-radius: 0 3px 3px 0;
+
+    span {
+      display: block;
+      transform: rotate(180deg);
+    }
 
     &:hover {
       cursor: pointer;
@@ -139,5 +148,31 @@
     box-sizing: content-box;
     padding-right: 20px;
     width: 100%;
+  }
+
+  @media screen and (max-width: $sz-sm) {
+    &.open &-fixed {
+      left: -300px;
+    }
+    &.open:not(.pristine) &-fixed {
+      left: 0;
+    }
+
+    &.open &-collapse {
+      right: -30px;
+      border-radius: 0 3px 3px 0;
+
+      span {
+        transform: rotate(180deg);
+      }
+    }
+    &.open:not(.pristine) &-collapse {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+
+      span {
+        transform: none;
+      }
+    }
   }
 }

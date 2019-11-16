@@ -13,7 +13,7 @@ import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { App } from "./app";
+import { AppComponent } from "./app";
 
 global.BROWSER = false;
 const server = express();
@@ -40,7 +40,7 @@ const renderReact: express.RequestHandler = (req: Request, res: Response) => {
   const context = { statusCode: 200 };
   const reactDom = renderToString(
     <StaticRouter location={req.url} context={context}>
-      <App />
+      <AppComponent />
     </StaticRouter>
   );
   const helmet = Helmet.renderStatic();

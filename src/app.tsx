@@ -1,20 +1,26 @@
 import * as React from "react";
-import { Switch, Route } from "react-router";
+import { Switch, Route, RouteComponentProps, withRouter } from "react-router";
 import Helmet from "react-helmet";
 import { hot } from "react-hot-loader";
 
 import { KanaStore } from "./redux/kana";
 
 import { Background } from "./components/background";
-import { Navigation } from "./components/nagivation";
+import { NavigationComponent as Navigation } from "./components/nagivation";
 
 import { NotFoundPage } from "./pages/notFound";
 import { HomePage } from "./pages/home";
 import { AboutPage } from "./pages/about";
 import { KanaPage } from "./pages/kana";
 
-export class App extends React.Component {
+export class App extends React.Component<RouteComponentProps<{}>> {
   public static kanaStore = new KanaStore();
+
+  public componentDidUpdate(prevProps: RouteComponentProps<{}>) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      window.scrollTo(0, 0); // Restore scroll
+    }
+  }
 
   public render() {
     return (
@@ -38,4 +44,7 @@ export class App extends React.Component {
   }
 }
 
-export const HotApp = hot(module)(App);
+
+export const AppComponent = withRouter(App);
+
+export const HotApp = hot(module)(AppComponent);

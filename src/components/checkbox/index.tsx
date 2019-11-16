@@ -40,12 +40,12 @@ export class Checkbox extends React.Component<ICheckboxProps, ICheckboxState> {
 
   /**
    * Listen to a change in the props
-   * @param props changed props
+   * @param prevProps previous props
    */
-  public componentWillReceiveProps(props: ICheckboxProps) {
-    if ("defaultValue" in props) {
+  public componentDidUpdate(prevProps: ICheckboxProps) {
+    if (prevProps.defaultValue !== this.props.defaultValue) {
       this.setState({
-        checked: props.defaultValue
+        checked: this.props.defaultValue
       });
     }
   }

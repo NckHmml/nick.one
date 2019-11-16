@@ -1,7 +1,7 @@
 const { CheckerPlugin } = require("awesome-typescript-loader");
 const { DefinePlugin, SourceMapDevToolPlugin, EvalSourceMapDevToolPlugin, HotModuleReplacementPlugin } = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const autoprefixer = require("autoprefixer");
 const cssnano = require("cssnano");
@@ -64,7 +64,7 @@ module.exports = (environment) => {
       publicPath: "dist/",
       // [contenthash] does not work on development mode, thus disable it (we don't really need it local anyways)
       filename: `[name]${environment === "development" ? "" : ".[hash]"}.js`,
-      chunkFilename: `[name]${environment === "development" ? "" : ".[hash]"}.js`
+      chunkFilename: `[name]${environment === "development" ? "" : ".[contenthash]"}.js`
     },
 
     resolve: {
@@ -87,6 +87,7 @@ module.exports = (environment) => {
           loader: "awesome-typescript-loader",
           options: {
             configFileName: "tsconfig.webpack.json",
+            silent: environment === "production",
             babelOptions: {
               plugins: environment === "development" ? ["react-hot-loader/babel"] : [] // Else it polutes the prod build
             }
@@ -125,10 +126,12 @@ module.exports = (environment) => {
             }, {
               loader: "sass-loader",
               options: {
-                importer: magicImporter(),
-                includePaths: [
-                  `${__dirname}/src/style`
-                ],
+                sassOptions: {
+                  importer: magicImporter(),
+                  includePaths: [
+                    `${__dirname}/src/style`
+                  ],
+                },
                 sourceMap: environment === "development"
               }
             }
@@ -142,15 +145,20 @@ module.exports = (environment) => {
       splitChunks: {
         chunks: "async",
         minSize: 0,
-        minChunks: 2,
-        maxAsyncRequests: 5,
-        maxInitialRequests: 3,
+        minChunks: Infinity,
         name: false,
         cacheGroups: {
-          commons: {
+          vendor: {
             test: /[\\/]node_modules[\\/]/,
-            priority: -20,
+            priority: -30,
             name: "vendor",
+            chunks: "all",
+            enforce: true
+          },
+          three: {
+            test: /[\\/]node_modules[\\/]three/,
+            priority: -20,
+            name: "three",
             chunks: "all",
             enforce: true
           },

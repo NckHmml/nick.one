@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "module": "es6",
-    "target": "es6",
+    "module": "commonjs",
+    "target": "es5",
     "moduleResolution": "node",
     "isolatedModules": true,
+    "importHelpers": true,
     "experimentalDecorators": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
@@ -42,14 +43,14 @@
           "@babel/preset-env",
           {
             "useBuiltIns": "usage",
-            "corejs": 2,
+            "corejs": 3,
             "targets": {
-              "browsers": "last 2 versions, ie 11",
+              "browsers": "last 2 versions, ie 10"
             },
-            "modules": false
+            "modules": "commonjs"
           }
         ]
-      ]   
+      ]
     },
     "babelCore": "@babel/core",
     "forceIsolatedModules": true,

@@ -1,19 +1,16 @@
 import * as React from "react";
-import * as Three from "three";
+import { Vector2, Vector3, PerspectiveCamera, Scene, WebGLRenderer, Mesh } from "three";
 import { WebGlAvailable } from "~/helpers/global";
 
 export class Background extends React.Component {
-  private camera: Three.PerspectiveCamera;
-  private scene: Three.Scene;
-  private renderer: Three.WebGLRenderer;
+  private size: Vector2;
+  private camera: PerspectiveCamera;
+  private scene: Scene;
+  private renderer: WebGLRenderer;
   private div: HTMLDivElement;
   private cubes = new Array<{
-    mesh: Three.Mesh,
-    rotate: {
-      x: number,
-      y: number,
-      z: number,
-    }
+    mesh: Mesh,
+    rotate: Vector3
   }>();
 
   private renderFrame = () => {
@@ -27,16 +24,18 @@ export class Background extends React.Component {
   }
 
   private renderCubes() {
-    const pixels = window.innerWidth * window.innerHeight;
-    const pixelsPerCube = 10000;
+    const { Three } = window;
+    this.cubes = [];
+    const pixels = this.size.x * this.size.y
+    const pixelsPerCube = 12500;
     const geometry = new Three.BoxGeometry(10, 10, 10, 1, 1, 1);
     for (let i = 0; i < pixels / pixelsPerCube; i++) {
       const material = new Three.MeshLambertMaterial({ color: 0xFF8859 });
       const cube = new Three.Mesh(geometry, material);
       cube.receiveShadow = true;
       cube.castShadow = true;
-      cube.position.setX(Math.random() * window.innerWidth - window.innerWidth / 2);
-      cube.position.setY(Math.random() * window.innerHeight - window.innerHeight / 2);
+      cube.position.setX(Math.random() * this.size.x - this.size.x / 2);
+      cube.position.setY(Math.random() * this.size.y - this.size.y / 2);
       cube.position.setZ(Math.random() * 300);
       this.scene.add(cube);
       const xSpeed = Math.random() * 0.016 - 0.008;
@@ -44,16 +43,18 @@ export class Background extends React.Component {
       const zSpeed = Math.random() * 0.016 - 0.008;
       this.cubes.push({
         mesh: cube,
-        rotate: {
-          x: xSpeed < 0 ? xSpeed - 0.002 : xSpeed + 0.002,
-          y: ySpeed < 0 ? ySpeed - 0.002 : ySpeed + 0.002,
-          z: zSpeed < 0 ? zSpeed - 0.002 : zSpeed + 0.002
-        }
+        rotate: new Three.Vector3 (
+          xSpeed < 0 ? xSpeed - 0.002 : xSpeed + 0.002,
+          ySpeed < 0 ? ySpeed - 0.002 : ySpeed + 0.002,
+          zSpeed < 0 ? zSpeed - 0.002 : zSpeed + 0.002
+        )
       });
     }
   }
 
   private renderLight() {
+    const { Three } = window;
+
     const light1 = new Three.DirectionalLight(0xFFFFFF, 1);
     light1.position.set(1, 2, 2)
     light1.target.position.set(0, 0, 0);
@@ -68,23 +69,55 @@ export class Background extends React.Component {
     this.scene.add(light2);
   }
 
-  public componentDidMount() {
-    // Initialize here, else we break the server sided rendering
-    if (WebGlAvailable) {
-      this.scene = new Three.Scene();
-      this.camera = new Three.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-      this.camera.position.set(0, 0, 500);
+  private onResize = () => {
+    const { Three } = window;
 
-      this.renderer = new Three.WebGLRenderer({ alpha: true });
-      this.renderer.shadowMap.enabled = true;
-      this.renderer.setPixelRatio(window.devicePixelRatio);
-      this.renderer.setSize(window.innerWidth, window.innerHeight);
-      this.div.append(this.renderer.domElement);
+    const newSize = new Three.Vector2(
+      Math.max(window.innerWidth, window.screen.availWidth),
+      Math.max(window.innerHeight, window.screen.availHeight),
+    );
+    const orientation = this.size.y > this.size.x;
+    const newOrientation = newSize.y > newSize.x;
 
+    // We check if the orientation changes, this basically only happens on phones
+    if (orientation != newOrientation) {
+      this.size = newSize;
+      this.renderer.setSize(this.size.x, this.size.y);
+      // Re-render cubes
+      this.cubes.forEach(c => this.scene.remove(c.mesh));
       this.renderCubes();
-      this.renderLight();
-      this.renderFrame();
     }
+  }
+
+  public componentWillUnmount() {
+    window.removeEventListener("resize", this.onResize)
+  }
+
+  public componentDidMount() {
+    System.import(/*webpackChunkName : "three" */ "three").then((Three: any) => {
+      window.Three = Three;
+      // Initialize here, else we break the server sided rendering
+      if (WebGlAvailable) {
+        window.addEventListener("resize", this.onResize)
+        this.size = new Three.Vector2(
+          Math.max(window.innerWidth, window.screen.availWidth),
+          Math.max(window.innerHeight, window.screen.availHeight),
+        );
+        this.scene = new Three.Scene();
+        this.camera = new Three.PerspectiveCamera(75, this.size.x / this.size.y, 1, 10000);
+        this.camera.position.set(0, 0, 500);
+  
+        this.renderer = new Three.WebGLRenderer({ alpha: true });
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.setPixelRatio(window.devicePixelRatio || 1);
+        this.renderer.setSize(this.size.x, this.size.y);
+        this.div.append(this.renderer.domElement);
+  
+        this.renderCubes();
+        this.renderLight();
+        this.renderFrame();
+      }
+    });
   }
 
   public render() {
