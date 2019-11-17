@@ -8,6 +8,10 @@ import { App } from "~/app";
 
 @observer
 export class KanaPage extends React.Component {
+  private toggleReverse = () => {
+    App.kanaStore.reverse = !App.kanaStore.reverse;
+  }
+
   private selectKana(items: Array<KanaItem>) {
     const { selected } = App.kanaStore;
     return (checked: Boolean) => {
@@ -131,6 +135,13 @@ export class KanaPage extends React.Component {
             {this.renderKanaGroups(false)}
 
             <h2>Other settings</h2>
+            <div className="g-24">
+              <Checkbox
+                title="reverse mode"
+                defaultValue={App.kanaStore.reverse}
+                onChange={this.toggleReverse}
+              />
+            </div>
             <div className="g-10 g-md-6 p-v-3">
               <button>Start</button>
             </div>

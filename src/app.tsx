@@ -1,8 +1,10 @@
+import { hot } from "react-hot-loader";
+
 import * as React from "react";
-import { Switch, Route, RouteComponentProps, withRouter } from "react-router";
+import { Switch, Route, RouteComponentProps } from "react-router";
+import { withRouter } from "react-router-dom";
 import { observer } from "mobx-react";
 import Helmet from "react-helmet";
-import { hot } from "react-hot-loader";
 
 import { KanaStore } from "./redux/kana";
 import { GlobalStore } from "./redux/global";
@@ -43,9 +45,9 @@ export class App extends React.Component<RouteComponentProps<{}>> {
         <Navigation />
         <div className="content">
           <Switch>
-            <Route exact={true} path="/" component={HomePage} />
-            <Route exact={true} path="/about" component={AboutPage} />
-            <Route exact={true} path="/kana" component={KanaPage} />
+            <Route exact={true} path="/"><HomePage /></Route>
+            <Route exact={true} path="/about"><AboutPage /></Route>
+            <Route exact={true} path="/kana"><KanaPage /></Route>
             <Route component={NotFoundPage} />
           </Switch>
           <div className="g-24 content-bottom" />
@@ -56,7 +58,6 @@ export class App extends React.Component<RouteComponentProps<{}>> {
   }
 }
 
-
 export const AppComponent = withRouter(App);
-
-export const HotApp = hot(module)(AppComponent);
+// Check if HMR should be enabled
+export const AppEntry = global.DEBUG ? hot(module)(AppComponent) : AppComponent;

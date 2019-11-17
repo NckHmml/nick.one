@@ -1,5 +1,5 @@
 const { CheckerPlugin } = require("awesome-typescript-loader");
-const { DefinePlugin, SourceMapDevToolPlugin, EvalSourceMapDevToolPlugin, HotModuleReplacementPlugin } = require("webpack");
+const { DefinePlugin, SourceMapDevToolPlugin, EvalSourceMapDevToolPlugin } = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -28,7 +28,7 @@ module.exports = (environment) => {
     `${__dirname}/src/style/main.scss`
   ];
   if (environment === "development") {
-    entry.unshift("webpack-hot-middleware/client")
+    entry.unshift("react-hot-loader/patch");
   }
 
   // Plugins
@@ -50,9 +50,6 @@ module.exports = (environment) => {
     }),
     devtoolPlugin,
   ];
-  if (environment === "development") {
-    plugins.push(new HotModuleReplacementPlugin());
-  }
 
   return {
     mode: environment,
@@ -61,7 +58,6 @@ module.exports = (environment) => {
 
     output: {
       path: `${__dirname}/dist`,
-      publicPath: "dist/",
       // [contenthash] does not work on development mode, thus disable it (we don't really need it local anyways)
       filename: `[name]${environment === "development" ? "" : ".[hash]"}.js`,
       chunkFilename: `[name]${environment === "development" ? "" : ".[contenthash]"}.js`
@@ -171,6 +167,10 @@ module.exports = (environment) => {
           default: false
         }
       }
+    },
+
+    devServer: {
+      historyApiFallback: true
     },
 
     plugins,

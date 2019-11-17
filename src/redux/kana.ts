@@ -1,10 +1,12 @@
 
-import { observable, IObservableArray, IArrayChange } from "mobx";
+import { observable, observe, IObservableArray, IArrayChange, IValueDidChange } from "mobx";
 import * as storage from "localforage";
 
 export class KanaStore {
   @observable
   public selected: IObservableArray<string> = observable.array();
+  @observable
+  public reverse: boolean = false;
 
   constructor() {
     if (!global.BROWSER) return; // Don't need this on the server side
@@ -14,12 +16,21 @@ export class KanaStore {
       .getItem("kana.selected")
       .then((values: Array<string>) => this.selected.replace(values || []))
       .catch(console.error);
-  }
 
+    observe(this, "reverse", this.reverseChange);
+    storage
+      .getItem("kana.selected")
+      .then((value: boolean) => this.reverse = value)
+      .catch(console.error);
+  }
 
   private selectedChange = (_change: IArrayChange<string>) => {
     const array = this.selected.peek();
     storage.setItem("kana.selected", array);
+  }
+
+  private reverseChange = (change: IValueDidChange<boolean>) => {
+    storage.setItem("kana.reverse", change.newValue);
   }
 }
 

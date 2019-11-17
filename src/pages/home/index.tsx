@@ -18,7 +18,7 @@ export class HomePage extends React.Component {
             <source media="(max-width: 1300px)" srcSet="https://res.cloudinary.com/nhum/image/upload/c_fill,dpr_1.0,f_auto,g_north,h_400,w_1300/v1556980093/main_background.heic 1x" />
             <source media="(max-width: 800px)" srcSet="https://res.cloudinary.com/nhum/image/upload/c_fill,dpr_2.0,f_auto,g_north,h_400,w_800/v1556980093/main_background.heic 2x" />
             <source media="(max-width: 800px)" srcSet="https://res.cloudinary.com/nhum/image/upload/c_fill,dpr_1.0,f_auto,g_north,h_400,w_800/v1556980093/main_background.heic 1x" />
-            <img src="https://res.cloudinary.com/nhum/image/upload/c_fill,dpr_1.0,f_auto,g_north,h_400,w_1600/v1556980093/main_background.heic" />
+            <img alt="Background image" src="https://res.cloudinary.com/nhum/image/upload/c_fill,dpr_1.0,f_auto,g_north,h_400,w_1600/v1556980093/main_background.heic" />
           </picture>
         </div>
 

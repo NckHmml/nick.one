@@ -59,7 +59,7 @@ class Navigation extends React.Component<RouteComponentProps<{}>, INavigationSta
                 <picture>
                   <source srcSet="https://res.cloudinary.com/nhum/image/upload/c_thumb,dpr_2.0,f_auto,h_60,q_auto:best,r_30,w_60/v1556979029/linkedin_avatar_l4hhzf.png 2x" />
                   <source srcSet="https://res.cloudinary.com/nhum/image/upload/c_thumb,dpr_1.0,f_auto,h_60,q_auto:best,r_30,w_60/v1556979029/linkedin_avatar_l4hhzf.png 1x" />
-                  <img src="https://res.cloudinary.com/nhum/image/upload/c_thumb,f_auto,h_60,q_auto:best,r_30,w_60/v1556979029/linkedin_avatar_l4hhzf.png" />
+                  <img src="https://res.cloudinary.com/nhum/image/upload/c_thumb,f_auto,h_60,q_auto:best,r_30,w_60/v1556979029/linkedin_avatar_l4hhzf.png" alt="Profile picture" />
                 </picture>
                 <figcaption>nick <span>hummel</span></figcaption>
               </figure>
@@ -72,6 +72,7 @@ class Navigation extends React.Component<RouteComponentProps<{}>, INavigationSta
                 <div className="nav-item-checkbox">
                   <Checkbox
                     title="Toggle dark mode"
+                    className="left"
                     defaultValue={App.globalStore.darkmode}
                     onChange={this.toggleDarkmode}
                   />

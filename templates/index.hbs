@@ -5,18 +5,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, viewport-fit=cover">
+  {{#if (eq webpackConfig.mode "production")}}
   \{{{helmet.title}}}
+  {{/if}}
   {{#each htmlWebpackPlugin.files.css}}
-  <link rel="stylesheet" type="text/css" href="{{trim this 4}}" />
+  <link rel="stylesheet" type="text/css" href="{{this}}" />
   {{/each}}
 </head>
 
 <body>
   <div id="entry" class="group">\{{{reactDom}}}</div>
 
-  <script src="{{trim htmlWebpackPlugin.files.chunks.main.entry 4}}"></script>
-  <script async="async" src="{{trim htmlWebpackPlugin.files.chunks.vendor.entry 4}}"></script>
-  <script async="async" src="{{trim htmlWebpackPlugin.files.chunks.polyfill.entry 4}}"></script>
+  <script src="{{htmlWebpackPlugin.files.chunks.main.entry}}"></script>
+  <script async="async" src="{{htmlWebpackPlugin.files.chunks.vendor.entry}}"></script>
+  <script async="async" src="{{htmlWebpackPlugin.files.chunks.polyfill.entry}}"></script>
 </body>
 
 </html>

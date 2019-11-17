@@ -1,4 +1,4 @@
-import { observable, intercept, IValueWillChange } from "mobx";
+import { observable, observe, IValueDidChange } from "mobx";
 import * as storage from "localforage";
 
 import { PreferrsDarkmode } from "~/helpers/global";
@@ -11,7 +11,7 @@ export class GlobalStore {
   constructor() {
     if (!global.BROWSER) return; // Don't need this on the server side
 
-    intercept(this, "darkmode", this.darkmodeChange);
+    observe(this, "darkmode", this.darkmodeChange);
     storage
       .getItem("darkmode")
       .then((value) => {
@@ -33,9 +33,8 @@ export class GlobalStore {
     });
   }
 
-  private darkmodeChange = (change: IValueWillChange<boolean>): IValueWillChange<boolean> => {
+  private darkmodeChange = (change: IValueDidChange<boolean>) => {
     if (this.darkmodeStored)
       storage.setItem("darkmode", change.newValue);
-    return change;
   }
 }

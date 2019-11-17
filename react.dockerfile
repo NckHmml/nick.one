@@ -11,7 +11,8 @@ RUN npm ci --quiet
 COPY tsconfig.json .
 COPY webpack.config.js .
 COPY tsconfig.webpack.json .
-COPY ./src ./src
 COPY ./templates ./templates
+COPY ./src ./src
+
 # Build through webpack
 RUN npm run prod

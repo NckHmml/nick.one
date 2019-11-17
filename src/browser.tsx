@@ -7,17 +7,22 @@ import "systemjs/dist/s.min.js";
 /* Imports */
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-
-import { AppComponent, HotApp } from "./app";
 import { BrowserRouter } from "react-router-dom";
-
-// Check if HMR should be enabled
-const Entry = global.DEBUG ? HotApp : AppComponent;
+import { AppEntry } from "./app";
 
 // Start rendering application
-ReactDOM.hydrate(
-  <BrowserRouter>
-    <Entry />
-  </BrowserRouter>,
-  document.getElementById("entry")
-);
+if (global.DEBUG) {
+  ReactDOM.render(
+    <BrowserRouter>
+      <AppEntry />
+    </BrowserRouter>,
+    document.getElementById("entry")
+  );
+} else {
+  ReactDOM.hydrate(
+    <BrowserRouter>
+      <AppEntry />
+    </BrowserRouter>,
+    document.getElementById("entry")
+  );
+}
