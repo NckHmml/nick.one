@@ -27,7 +27,7 @@ export class GlobalStore {
   private listenDarkmodePreferrence() {
     if (!global.BROWSER) return;
     if (!window.matchMedia) return;
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (result) => {
+    window.matchMedia("(prefers-color-scheme: dark)").addListener((result) => {
       if (this.darkmodeStored) return;
       this.darkmode = result.matches;
     });
