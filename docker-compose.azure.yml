@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   nginx:
-    image: nckhmml/portfolio-nginx
+    image: nhumnl.azurecr.io/portfolio/nginx
     environment:
       NGINX_PORT: 80
     ports:
@@ -9,7 +9,7 @@ services:
     depends_on:
       - react
   react:
-    image: nckhmml/portfolio
+    image: nhumnl.azurecr.io/portfolio/react
     environment:
       NODE_ENV: production
     command: npm run start
