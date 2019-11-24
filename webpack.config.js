@@ -58,9 +58,10 @@ module.exports = (environment) => {
 
     output: {
       path: `${__dirname}/dist`,
+      publicPath: environment === "production" ? "//nhum.azureedge.net/" : "/",
       // [contenthash] does not work on development mode, thus disable it (we don't really need it local anyways)
-      filename: `[name]${environment === "development" ? "" : ".[hash]"}.js`,
-      chunkFilename: `[name]${environment === "development" ? "" : ".[contenthash]"}.js`
+      filename: environment === "production" ? "[name].[hash].js" : "[name].js",
+      chunkFilename: environment === "production" ? "[name].[contenthash].js" : "[name].js",
     },
 
     resolve: {

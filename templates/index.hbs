@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, viewport-fit=cover">
-  <link rel="icon" href="/static/favicon.ico" type="image/ico">
-  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="{{webpackConfig.output.publicPath}}static/favicon.ico" type="image/ico">
+  <link rel="icon" href="{{webpackConfig.output.publicPath}}static/favicon.svg" type="image/svg+xml">
   {{#if (eq webpackConfig.mode "production")}}
   \{{{helmet.title}}}
   {{/if}}
