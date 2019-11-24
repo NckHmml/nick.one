@@ -1,0 +1,34 @@
+.c-slider {
+  width: 150px;
+  height: 26px;
+  line-height: 26px;
+  box-sizing: border-box;
+  position: relative;
+
+  &-line, &-cursor {
+    position: absolute;
+    top: -100%;
+    bottom: -100%;
+    margin: auto;
+  }
+
+  &-line {
+    left: 0;
+    border-radius: 2px;
+    border: 1px solid $cl-primary;
+    display: inline-block;
+    width: 100%;
+    height: 6px;
+    box-sizing: border-box;
+  }
+
+  &-cursor {
+    background: $cl-primary;
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    touch-action: none;
+
+    content: ' ';
+  }
+}

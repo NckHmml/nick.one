@@ -19,7 +19,6 @@ interface ICheckboxState {
 
 /**
  * Checkbox styled as a toggle element
- * @example readme.md
  */
 export class Checkbox extends React.Component<ICheckboxProps, ICheckboxState> {
   public state: ICheckboxState = {
@@ -65,7 +64,7 @@ export class Checkbox extends React.Component<ICheckboxProps, ICheckboxState> {
       <span className={rootClass}>
         <input
           type="checkbox"
-          checked={this.state.checked}
+          checked={Boolean(this.state.checked)}
           readOnly={true}
         />
         <label onClick={this.switch}>

@@ -27,9 +27,6 @@ module.exports = (environment) => {
     `${__dirname}/src/browser.tsx`,
     `${__dirname}/src/style/main.scss`
   ];
-  if (environment === "development") {
-    entry.unshift("react-hot-loader/patch");
-  }
 
   // Plugins
   const plugins = [
@@ -58,7 +55,7 @@ module.exports = (environment) => {
 
     output: {
       path: `${__dirname}/dist`,
-      publicPath: environment === "production" ? "//nhum.azureedge.net/" : "/",
+      publicPath: environment === "production" ? "//nhum.azureedge.net/" : undefined,
       // [contenthash] does not work on development mode, thus disable it (we don't really need it local anyways)
       filename: environment === "production" ? "[name].[hash].js" : "[name].js",
       chunkFilename: environment === "production" ? "[name].[contenthash].js" : "[name].js",
@@ -71,8 +68,7 @@ module.exports = (environment) => {
         "node_modules"
       ],
       alias: {
-        "~": `${__dirname}/src`,
-        "react-dom": environment === "development" ? "@hot-loader/react-dom" : "react-dom"
+        "~": `${__dirname}/src`
       }
     },
 
@@ -81,14 +77,15 @@ module.exports = (environment) => {
         {
           test: /\.tsx?$/,
           exclude: /node_modules/,
-          loader: "awesome-typescript-loader",
-          options: {
-            configFileName: "tsconfig.webpack.json",
-            silent: environment === "production",
-            babelOptions: {
-              plugins: environment === "development" ? ["react-hot-loader/babel"] : [] // Else it polutes the prod build
+          use: [
+            {
+              loader: "awesome-typescript-loader",
+              options: {
+                configFileName: "tsconfig.webpack.json",
+                silent: environment === "production",
+              }
             }
-          }
+          ]
         },
         {
           test: /\.hbs$/,
@@ -159,7 +156,7 @@ module.exports = (environment) => {
             enforce: true
           },
           three: {
-            test: /[\\/]node_modules[\\/]three/ ,
+            test: /[\\/]node_modules[\\/]three/,
             priority: 0,
             name: "three",
             chunks: "all",

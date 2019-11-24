@@ -62,7 +62,7 @@ export class HomePage extends React.Component {
                 </h2>
                 <p>
                   Before I left to Tokyo for an internship, I wanted at least to be able to read some of the basic Japanese characters.
-                  After a bit of research, I found that Hiragana and Katakana are the most common and easiest to learn.
+                  After a bit of research, I found that Hiragana and Katakana would be the easiest to learn.
                   Sadly, I couldn't find any tools that could help me in the exact way as I wanted, which is by repeating them so often that you can't forget them even if you wanted to.
                 </p>
                 <Link to="/kana">Read more</Link>

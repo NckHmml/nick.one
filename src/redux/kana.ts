@@ -7,6 +7,10 @@ export class KanaStore {
   public selected: IObservableArray<string> = observable.array();
   @observable
   public reverse: boolean = false;
+  @observable
+  public repeat: number = 1;
+  @observable
+  public delay: number = 200;
 
   constructor() {
     if (!global.BROWSER) return; // Don't need this on the server side
@@ -19,8 +23,20 @@ export class KanaStore {
 
     observe(this, "reverse", this.reverseChange);
     storage
-      .getItem("kana.selected")
+      .getItem("kana.reverse")
       .then((value: boolean) => this.reverse = value)
+      .catch(console.error);
+
+    observe(this, "repeat", this.repeatChange);
+    storage
+      .getItem("kana.repeat")
+      .then((value: number) => this.repeat = value || 1)
+      .catch(console.error);
+
+    observe(this, "delay", this.delayChange);
+    storage
+      .getItem("kana.delay")
+      .then((value: number) => this.delay = value || 200)
       .catch(console.error);
   }
 
@@ -31,6 +47,14 @@ export class KanaStore {
 
   private reverseChange = (change: IValueDidChange<boolean>) => {
     storage.setItem("kana.reverse", change.newValue);
+  }
+
+  private repeatChange = (change: IValueDidChange<number>) => {
+    storage.setItem("kana.repeat", change.newValue);
+  }
+
+  private delayChange = (change: IValueDidChange<number>) => {
+    storage.setItem("kana.delay", change.newValue);
   }
 }
 

@@ -1,5 +1,3 @@
-import { hot } from "react-hot-loader";
-
 import * as React from "react";
 import { Switch, Route, RouteComponentProps } from "react-router";
 import { withRouter } from "react-router-dom";
@@ -37,10 +35,9 @@ export class App extends React.Component<RouteComponentProps<{}>> {
 
     return (
       <>
-        <Helmet
-          titleTemplate="Portfolio - %s"
-        >
+        <Helmet titleTemplate="Portfolio - %s">
           <html lang="en" className={htmlClass} />
+          <meta name="description" content="Personal portfolio, by Nick Hummel" />
         </Helmet>
         <Navigation />
         <div className="content">
@@ -59,5 +56,3 @@ export class App extends React.Component<RouteComponentProps<{}>> {
 }
 
 export const AppComponent = withRouter(App);
-// Check if HMR should be enabled
-export const AppEntry = global.DEBUG ? hot(module)(AppComponent) : AppComponent;

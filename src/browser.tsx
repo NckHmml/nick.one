@@ -8,20 +8,20 @@ import "systemjs/dist/s.min.js";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import { AppEntry } from "./app";
+import { AppComponent } from "./app";
 
 // Start rendering application
 if (global.DEBUG) {
   ReactDOM.render(
     <BrowserRouter>
-      <AppEntry />
+      <AppComponent />
     </BrowserRouter>,
     document.getElementById("entry")
   );
 } else {
   ReactDOM.hydrate(
     <BrowserRouter>
-      <AppEntry />
+      <AppComponent />
     </BrowserRouter>,
     document.getElementById("entry")
   );

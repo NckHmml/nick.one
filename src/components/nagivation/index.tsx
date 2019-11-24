@@ -67,7 +67,7 @@ class Navigation extends React.Component<RouteComponentProps<{}>, INavigationSta
             <div className="nav-items group">
               <div className="nav-item g-24"><Link to="/">Home</Link></div>
               <div className="nav-item g-24"><Link to="/kana">Kana</Link></div>
-              <div className="nav-item g-24"><Link to="/test">About</Link></div>
+              <div className="nav-item g-24"><Link to="/about">About</Link></div>
               <div className="nav-item g-24">
                 <div className="nav-item-checkbox">
                   <Checkbox
