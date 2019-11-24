@@ -81,10 +81,13 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
   /** Sets the distance based on the default value */
   private setDefault = () => {
     const { min, max, defaultValue } = this.props;
-    const percentage = (defaultValue - min) / (max - min);
-    const distance = this.cursor.parentElement.clientWidth - this.cursor.clientWidth;
 
-    this.setDistance(distance * percentage);
+    if (defaultValue !== this.state.value) {
+      const percentage = (defaultValue - min) / (max - min);
+      const distance = this.cursor.parentElement.clientWidth - this.cursor.clientWidth;
+      
+      this.setDistance(distance * percentage);
+    }
   }
 
   public componentDidUpdate(prev: ISliderProps) {
