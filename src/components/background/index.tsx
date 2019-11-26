@@ -109,7 +109,7 @@ export class Background extends React.Component {
 
         this.renderer = new Three.WebGLRenderer({ alpha: true });
         this.renderer.shadowMap.enabled = true;
-        this.renderer.setPixelRatio(window.devicePixelRatio || 1);
+        this.renderer.setPixelRatio(Math.max(window.devicePixelRatio || 2, 2)); // Set DPR to at least two, else device DPR
         this.renderer.setSize(this.size.x, this.size.y);
         this.div.append(this.renderer.domElement);
 
