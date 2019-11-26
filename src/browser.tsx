@@ -8,7 +8,9 @@ import "systemjs/dist/s.min.js";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import { AppComponent } from "./app";
+import { ApplicationInsights } from "@microsoft/applicationinsights-web";
+
+import { AppComponent, App } from "./app";
 
 // Start rendering application
 if (global.DEBUG) {
@@ -19,6 +21,16 @@ if (global.DEBUG) {
     document.getElementById("entry")
   );
 } else {
+  // Load MS App Insights
+  App.insights = new ApplicationInsights({
+    config: { 
+      instrumentationKey: global.INSIGHTS_KEY,
+      enableDebug: global.DEBUG,
+    }
+  });
+  App.insights.loadAppInsights();
+  App.insights.trackPageView();
+
   ReactDOM.hydrate(
     <BrowserRouter>
       <AppComponent />

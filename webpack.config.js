@@ -39,7 +39,8 @@ module.exports = (environment) => {
     new DefinePlugin({
       // Put it under "global" so that it works both in NodeJS and in browsers (see index.d.ts)
       "global.DEBUG": JSON.stringify(environment === "development"),
-      "global.BROWSER": true,
+      "global.BROWSER": JSON.stringify(true),
+      "global.INSIGHTS_KEY": JSON.stringify("3fc22265-a734-465e-99b9-e09c5f2f3010")
     }),
     new MiniCssExtractPlugin({
       filename: `[name]${environment === "development" ? "" : ".[contenthash]"}.css`,

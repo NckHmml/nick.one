@@ -2,6 +2,7 @@ import * as React from "react";
 import { Switch, Route, RouteComponentProps } from "react-router";
 import { withRouter } from "react-router-dom";
 import { observer } from "mobx-react";
+import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import Helmet from "react-helmet";
 
 import { KanaStore } from "./redux/kana";
@@ -18,12 +19,16 @@ import { ClassNames } from "./helpers/global";
 
 @observer
 export class App extends React.Component<RouteComponentProps<{}>> {
+  public static insights?: ApplicationInsights;
   public static kanaStore = new KanaStore();
   public static globalStore = new GlobalStore();
 
   public componentDidUpdate(prevProps: RouteComponentProps<{}>) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       window.scrollTo(0, 0); // Restore scroll
+      if (App.insights) {
+        App.insights.trackPageView();
+      }
     }
   }
 
