@@ -3,6 +3,7 @@ WORKDIR /usr/app
 
 # Prepare for build
 COPY tsconfig.json .
+COPY .env .
 COPY ./src ./src
 COPY ./static ./static
 
@@ -11,7 +12,7 @@ COPY package.json .
 COPY package-lock.json .
 RUN npm ci --quiet
 
-# Build through webpack
+# Build
 RUN npm run prod
 
 # Prepare run env

@@ -5,8 +5,8 @@
   "main": "src/entry/server.tsx",
   "sideEffects": false,
   "scripts": {
-    "dev": "rm -rf dist && DEBUG=true parcel ./src/index.html -p 8080",
-    "prod": "rm -rf dist && parcel build ./src/index.html --public-url https://nhum.azureedge.net/",
+    "dev": "rm -rf dist && DEBUG=true BROWSER=true parcel ./src/index.dev.html -p 8080",
+    "prod": "rm -rf dist && BROWSER=true parcel build ./src/index.html --public-url https://nhum.azureedge.net/",
     "start": "ts-node --project tsconfig.server.json -r tsconfig-paths/register src/server.tsx"
   },
   "repository": {
@@ -38,8 +38,8 @@
   "devDependencies": {
     "@babel/core": "^7.6.0",
     "@babel/polyfill": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.7.4",
     "@microsoft/applicationinsights-web": "^2.3.1",
     "autoprefixer": "^9.5.1",
     "core-js": "^3.4.1",

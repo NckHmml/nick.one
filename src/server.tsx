@@ -16,7 +16,6 @@ import { AboutPage } from "~/pages/about";
 import { HomePage } from "~/pages/home";
 import { NotFoundPage } from "~/pages/notFound";
 
-process.env.BROWSER = "false";
 const server = express();
 
 const indexPath = path.resolve(__dirname, "../dist/index.html");
