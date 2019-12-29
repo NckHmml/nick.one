@@ -1,8 +1,8 @@
 {
   "navigation": {
-    "home": "home.nl",
+    "home": "home",
     "kana": "kana",
-    "about": "about"
+    "about": "info"
   },
   "home": {
     "intro": "intro"
