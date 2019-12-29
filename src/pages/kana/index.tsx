@@ -2,27 +2,28 @@ import * as React from "react";
 import { Helmet } from "react-helmet";
 import { observer } from "mobx-react";
 
-import { App } from "~/app";
-import { KANA_BUFFER, KanaItem } from "~/redux/kana";
+import { KANA_BUFFER, KanaItem, KanaStore } from "~/redux/kana";
 import { Checkbox } from "~/components/checkbox";
 import { Slider } from "~/components/slider";
 
 @observer
 export class KanaPage extends React.Component {
+  public static kanaStore = new KanaStore();
+  
   private setRepeat = (repeat: number) => {
-    App.kanaStore.repeat = repeat;
+    KanaPage.kanaStore.repeat = repeat;
   }
 
   private setDelay = (delay: number) => {
-    App.kanaStore.delay = delay;
+    KanaPage.kanaStore.delay = delay;
   }
 
   private toggleReverse = () => {
-    App.kanaStore.reverse = !App.kanaStore.reverse;
+    KanaPage.kanaStore.reverse = !KanaPage.kanaStore.reverse;
   }
 
   private selectKana(items: Array<KanaItem>) {
-    const { selected } = App.kanaStore;
+    const { selected } = KanaPage.kanaStore;
     return (checked: Boolean) => {
       if (checked) {
         items
@@ -43,7 +44,7 @@ export class KanaPage extends React.Component {
   }
 
   private isChecked(hiragana: boolean, group: number): boolean {
-    const { selected } = App.kanaStore;
+    const { selected } = KanaPage.kanaStore;
     const checked = KANA_BUFFER
       .filter(kana => kana.group === group && kana.hiragana === hiragana)
       .map(k => selected.includes(k.kana))
@@ -53,7 +54,7 @@ export class KanaPage extends React.Component {
   }
 
   private isAllChecked(hiragana: boolean) {
-    const { selected } = App.kanaStore;
+    const { selected } = KanaPage.kanaStore;
     const checked = KANA_BUFFER
       .filter(kana => kana.hiragana === hiragana)
       .map(k => selected.includes(k.kana))
@@ -98,7 +99,7 @@ export class KanaPage extends React.Component {
   }
 
   public render() {
-    const { delay, repeat } = App.kanaStore;
+    const { delay, repeat } = KanaPage.kanaStore;
     return (
       <>
         <Helmet>
@@ -158,7 +159,7 @@ export class KanaPage extends React.Component {
                     <td>Reverse mode</td>
                     <td>
                       <Checkbox
-                        defaultValue={App.kanaStore.reverse}
+                        defaultValue={KanaPage.kanaStore.reverse}
                         onChange={this.toggleReverse}
                       />
                     </td>
@@ -186,3 +187,5 @@ export class KanaPage extends React.Component {
     );
   }
 }
+
+export default KanaPage;

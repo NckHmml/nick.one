@@ -2,21 +2,54 @@
 import "core-js/features/map";
 import "core-js/features/set";
 
-import "systemjs/dist/s.min.js";
-
 /* Imports */
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 
 import { AppComponent, App } from "./app";
+import { NotFoundPage } from "./pages/notFound";
 
+const AboutPageLazy = React.lazy(() => import("./pages/about"));
+const HomePageLazy = React.lazy(() => import("./pages/home"));
+const KanaPageLazy = React.lazy(() => import("./pages/kana"));
+
+const loader = <div>Loading...</div>;
+
+// Also maintain routes in server.tsx
+const Entry = () => (
+  <AppComponent>
+    <Switch>
+      <Route exact={true} path="/">
+        <React.Suspense fallback={loader}>
+          <HomePageLazy />
+        </React.Suspense>
+      </Route>
+      <Route exact={true} path="/about">
+        <React.Suspense fallback={loader}>
+          <AboutPageLazy />
+        </React.Suspense>
+      </Route>
+      <Route exact={true} path="/kana">
+        <React.Suspense fallback={loader}>
+          <KanaPageLazy />
+        </React.Suspense>
+      </Route>
+      <Route component={NotFoundPage} />
+    </Switch>
+  </AppComponent>
+)
+
+process.env.BROWSER = "true";
 // Start rendering application
-if (global.DEBUG) {
+if (process.env.DEBUG === "true") {
+  if (module["hot"]) {
+    module["hot"].accept()
+  }
   ReactDOM.render(
     <BrowserRouter>
-      <AppComponent />
+      <Entry />
     </BrowserRouter>,
     document.getElementById("entry")
   );
@@ -24,8 +57,8 @@ if (global.DEBUG) {
   // Load MS App Insights
   App.insights = new ApplicationInsights({
     config: { 
-      instrumentationKey: global.INSIGHTS_KEY,
-      enableDebug: global.DEBUG,
+      instrumentationKey: process.env.INSIGHTS_KEY,
+      enableDebug: process.env.DEBUG === "true",
     }
   });
   App.insights.loadAppInsights();
@@ -33,7 +66,7 @@ if (global.DEBUG) {
 
   ReactDOM.hydrate(
     <BrowserRouter>
-      <AppComponent />
+      <Entry />
     </BrowserRouter>,
     document.getElementById("entry")
   );

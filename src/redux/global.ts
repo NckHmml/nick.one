@@ -9,7 +9,7 @@ export class GlobalStore {
   public darkmodeStored: boolean;
 
   constructor() {
-    if (!global.BROWSER) return; // Don't need this on the server side
+    if (process.env.BROWSER !== "true") return; // Don't need this on the server side
 
     observe(this, "darkmode", this.darkmodeChange);
     storage
@@ -25,7 +25,7 @@ export class GlobalStore {
   }
 
   private listenDarkmodePreferrence() {
-    if (!global.BROWSER) return;
+    if (process.env.BROWSER !== "true") return;
     if (!window.matchMedia) return;
     window.matchMedia("(prefers-color-scheme: dark)").addListener((result) => {
       if (this.darkmodeStored) return;

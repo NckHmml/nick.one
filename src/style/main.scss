@@ -15,6 +15,12 @@
 @import 'global/text';
 
 /* Components */
+@import '../components/background/style';
+@import '../components/button/style';
+@import '../components/checkbox/style';
+@import '../components/navigation/style';
+@import '../components/slider/style';
 
-@import '../components/**/*.scss';
-@import '../pages/**/*.scss';
+/* Pages */
+@import '../pages/home/style';
+@import '../pages/kana/style';

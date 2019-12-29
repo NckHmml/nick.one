@@ -13,7 +13,7 @@ export class KanaStore {
   public delay: number = 200;
 
   constructor() {
-    if (!global.BROWSER) return; // Don't need this on the server side
+    if (process.env.BROWSER !== "true") return; // Don't need this on the server side
 
     this.selected.observe(this.selectedChange);
     storage

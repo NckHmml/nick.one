@@ -24,7 +24,7 @@ export const WebGlAvailable: boolean = (() => {
  * Checks whether the current browser prefers darkmode
  */
 export const PreferrsDarkmode = () => {
-  if (!global.BROWSER) return false;
+  if (process.env.BROWSER !== "true") return false;
   if (!window.matchMedia) return false;
   return window.matchMedia("(prefers-color-scheme: dark)").matches;
 }

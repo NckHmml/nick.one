@@ -1,0 +1,10 @@
+{
+  "navigation": {
+    "home": "home",
+    "kana": "kana",
+    "about": "about"
+  },
+  "home": {
+    "intro": "intro"
+  }
+}

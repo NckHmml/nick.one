@@ -94,7 +94,7 @@ export class Background extends React.Component {
   }
 
   public componentDidMount() {
-    System.import(/*webpackChunkName: "three" */ "three").then((Three: any) => {
+    import("three").then((Three: any) => {
       window.Three = Three;
       // Initialize here, else we break the server sided rendering
       if (WebGlAvailable) {

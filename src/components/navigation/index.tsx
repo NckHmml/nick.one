@@ -2,9 +2,10 @@ import * as React from "react";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { observer } from "mobx-react";
 
+import { App } from "~/app";
 import { ClassNames } from "~/helpers/global";
 import { Checkbox } from "~/components/checkbox";
-import { App } from "~/app";
+import { I18N } from "~/components/i18n";
 
 interface INavigationState {
   open: boolean;
@@ -65,7 +66,7 @@ class Navigation extends React.Component<RouteComponentProps<{}>, INavigationSta
               </figure>
             </div>
             <div className="nav-items group">
-              <div className="nav-item g-24"><Link to="/">Home</Link></div>
+              <div className="nav-item g-24"><Link to="/"><I18N parent="navigation" name="home" /></Link></div>
               <div className="nav-item g-24"><Link to="/kana">Kana</Link></div>
               <div className="nav-item g-24"><Link to="/about">About</Link></div>
               <div className="nav-item g-24">

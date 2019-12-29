@@ -20,4 +20,6 @@ services:
       dockerfile: react.dockerfile
     environment:
       NODE_ENV: production
+    env_file:
+      - ./.env
     command: npm start

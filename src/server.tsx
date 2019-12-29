@@ -7,12 +7,16 @@ import * as React from "react";
 import * as Handlebars from "handlebars";
 import { Request, Response } from "express";
 import { renderToString } from "react-dom/server";
-import { StaticRouter } from "react-router-dom";
+import { StaticRouter, Switch, Route } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import { AppComponent } from "./app";
+import { KanaPage } from "~/pages/kana";
+import { AboutPage } from "~/pages/about";
+import { HomePage } from "~/pages/home";
+import { NotFoundPage } from "~/pages/notFound";
 
-global.BROWSER = false;
+process.env.BROWSER = "false";
 const server = express();
 
 const indexPath = path.resolve(__dirname, "../dist/index.html");
@@ -23,9 +27,23 @@ const indexTemplate = Handlebars.compile(indexHtml.toString());
 
 const renderReact: express.RequestHandler = (req: Request, res: Response) => {
   const context = { statusCode: 200 };
+  // Also maintain routes in browser.tsx
   const reactDom = renderToString(
     <StaticRouter location={req.url} context={context}>
-      <AppComponent />
+      <AppComponent>
+        <Switch>
+          <Route exact={true} path="/">
+            <HomePage />
+          </Route>
+          <Route exact={true} path="/about">
+            <AboutPage />
+          </Route>
+          <Route exact={true} path="/kana">
+            <KanaPage />
+          </Route>
+          <Route component={NotFoundPage} />
+        </Switch>
+      </AppComponent>
     </StaticRouter>
   );
   const helmet = Helmet.renderStatic();

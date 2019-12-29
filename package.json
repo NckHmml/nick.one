@@ -2,13 +2,12 @@
   "name": "portfolio",
   "version": "1.0.0",
   "description": "Personal portfolio",
-  "main": "src/server.tsx",
+  "main": "src/entry/server.tsx",
   "sideEffects": false,
   "scripts": {
-    "dev": "webpack-dev-server --hot --env=development",
-    "prod": "webpack --env=production",
-    "stats": "webpack --env=production --profile --json > stats.json",
-    "start": "ts-node -r tsconfig-paths/register src/server.tsx"
+    "dev": "rm -rf dist && DEBUG=true parcel ./src/index.html -p 8080",
+    "prod": "rm -rf dist && parcel build ./src/index.html --public-url https://nhum.azureedge.net/",
+    "start": "ts-node --project tsconfig.server.json -r tsconfig-paths/register src/server.tsx"
   },
   "repository": {
     "type": "git",
@@ -22,9 +21,8 @@
     "@types/react-dom": "^16.9.4",
     "@types/react-helmet": "^5.0.14",
     "@types/react-router-dom": "^5.1.2",
-    "@types/systemjs": "^6.1.0",
     "express": "^4.17.1",
-    "handlebars": "^4.5.2",
+    "handlebars": "^4.5.3",
     "localforage": "^1.7.3",
     "mobx": "^4.13.0",
     "mobx-react": "^6.1.1",
@@ -44,22 +42,9 @@
     "@babel/preset-react": "^7.0.0",
     "@microsoft/applicationinsights-web": "^2.3.1",
     "autoprefixer": "^9.5.1",
-    "awesome-typescript-loader": "^5.2.1",
-    "clean-webpack-plugin": "^2.0.2",
     "core-js": "^3.4.1",
-    "css-loader": "^3.2.0",
-    "cssnano": "^4.1.10",
-    "handlebars-loader": "^1.7.1",
-    "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.7.0",
-    "node-sass": "^4.12.0",
-    "node-sass-magic-importer": "^5.3.2",
-    "postcss-loader": "^3.0.0",
-    "sass-loader": "^8.0.0",
-    "systemjs": "^6.1.4",
-    "tslib": "^1.10.0",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.24.0",
+    "tslib": "^1.10.0"
   }
 }
