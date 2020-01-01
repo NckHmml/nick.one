@@ -60,9 +60,12 @@ const renderReact: express.RequestHandler = (req: Request, res: Response) => {
   }));
 };
 
+// Root to english
+server.get("/", (_req: Request, res: Response) => res.redirect(`/en/`));
 // Host /dist as static
 server.use(express.static(path.resolve(__dirname, "../dist")));
 // All other request try to handle by React
+server.get("/:lang([a-z]{2})/", renderReact);
 server.get("/:lang([a-z]{2})/*", renderReact);
 server.get("/*", (req: Request, res: Response) => res.redirect(`/en${req.path}`));
 
