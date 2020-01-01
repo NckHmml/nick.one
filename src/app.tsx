@@ -17,6 +17,7 @@ import { ClassNames } from "./helpers/global";
 export class App extends React.Component<RouteComponentProps<{}>> {
   public static insights?: ApplicationInsights;
   public static globalStore = new GlobalStore();
+  public static I18N: I18NJSON;
 
   public componentDidUpdate(prevProps: RouteComponentProps<{}>) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
@@ -41,8 +42,8 @@ export class App extends React.Component<RouteComponentProps<{}>> {
         </Helmet>
         <Navigation />
         <div className="content">
-          {this.props.children}
-          <div className="g-24 content-bottom" />
+          <div>{this.props.children}</div>
+          <div key="content-bottom" className="g-24 content-bottom" />
         </div>
         <Background />
       </>

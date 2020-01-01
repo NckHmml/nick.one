@@ -33,7 +33,7 @@
     margin: 0 -8px;
   }
 
-  &-container {
+  &-container, &-test {
     box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
     background: #FFF;
     position: relative;
@@ -42,6 +42,66 @@
     @include dark-mode {
       background: $cl-d-background;
       color: #FFF;
+    }
+  }
+
+  &-input {
+    text-align: center;
+
+    > input {
+      width: 208px;
+
+      @include dark-mode {
+        background: $cl-d-background;
+        color: #FFF;
+      }
+    }
+  }
+
+  &-preview {
+    display: block;
+    margin: 20px 0;
+    padding: 0;
+
+    &,
+    & li {
+      list-style: none;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    li {
+      border: 1px solid $cl-primary;
+      display: inline-block;
+      font-size: $fz-h1;
+      height: 100px;
+      line-height: 100px;
+      margin: 2px;
+      width: 100px;
+    }
+
+    li.valid,
+    &.valid li {
+      border: 1px solid $cl-quaternary;
+      color: $cl-quaternary;
+    }
+
+    li.invalid,
+    &.invalid li {
+      border: 1px solid $cl-tertiary;
+      color: $cl-tertiary;
+    }
+
+    &.click li {
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(0,0,0,.3);
+
+        @include dark-mode {
+          background: rgba(0,0,0,.5);
+        }
+      }
     }
   }
 

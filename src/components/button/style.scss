@@ -1,20 +1,42 @@
 /// <reference path="../../style/core/color" />
 
+@mixin button-color($color, $font) {
+  background: $color;
+  &, &:active, &[href], &[href]:hover {
+    color: $font;
+  }
+
+  &:hover {
+    background: lighten($color, $cl-shade-1);
+  }
+}
+
 button,
 .c-button {
   display: inline-block;
   padding: 15px;
-  background: $cl-primary;
   border: none;
   border-radius: 2px;
-  color: #FFF;
+  box-sizing: border-box;
   transition: background-color 300ms;
   width: 100%;
   font-size: $fz-h4;
   text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+
+  @include button-color($cl-primary, #FFF);
+  &.secondary {
+    @include button-color($cl-grey, #000);
+  }
 
   &:hover {
-    background: lighten($cl-primary, $cl-shade-1);
     cursor: pointer;
+  }
+
+  @for $i from 1 through 4 {
+    &.w-#{$i * 50} {
+      width: $i * 50px;
+    }
   }
 }

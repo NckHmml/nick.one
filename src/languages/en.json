@@ -1,10 +1,40 @@
 {
   "navigation": {
-    "home": "home",
-    "kana": "kana",
-    "about": "about"
+    "home": "Home",
+    "kana": "Kana",
+    "about": "About",
+    "toggle": "Toggle dark mode"
   },
   "home": {
-    "intro": "intro"
+    "intro_title": "About me",
+    "intro_text": "I'm Nick Hummel, I have a passion for coding and solving problems. I am a creative, abstract and theoretical thinker and have the ability to turn ideas into solutions. I have extensive development experience with .NET technology and NodeJS be it either MVC or RESTful, I can also find my way around in Java, Scala and PHP. For frontend development I specialize in React with Typescript and also have some experience with Angular, but I find it easy to adapt to any other framework."
+  },
+  "kana": {
+    "intro_title": "Kana learning tool",
+    "intro_text": "Before I left to Tokyo for an internship, I wanted at least to be able to read some of the basic Japanese characters. After a bit of research, I found that Hiragana and Katakana would be the easiest to learn. Sadly, I couldn't find any tools that could help me in the exact way as I wanted, which is by repeating them so often that you can't forget them even if you wanted to.",
+    "instruction_title": "Instructions",
+    "instruction_text": "This tool works by repeating a selected sets of characters, with the idea that after repeating it enough times, they will be stored in the long term memory.",
+    "instruction_li_1": "Use the checkboxes to select the character sets you want to learn.",
+    "instruction_li_2": "'Reverse mode' means you get 3 options and you have the select the correct option.",
+    "instruction_li_3": "'Repeat' is how often you want to repeat all character sets that you have selected.",
+    "instruction_li_4": "'Delay' is how long the answer is shown after the correct answer is given.",
+    "h_set": "Hiragana sets",
+    "k_set": "Katakana sets",
+    "other_settings": "Other settings",
+    "add": "Add",
+    "add_all": "Add all",
+    "reverse": "Reverse mode",
+    "repeat": "Repeat",
+    "delay": "Delay",
+    "start": "Start",
+    "continue": "Continue",
+    "cancel": "cancel"
+  },
+  "about": {
+    "intro_title": "About this website",
+    "intro_text": "This website is a single page application (SPA) created with React, Typescript and server-sided rendering through NodeJS. The server-sided rendering is implemented for SEO optimization as the only search engine which can crawl a SPA without any problems, is Google. And as we don't want to limit our exposure to just Google, we want our SPA to display content before the Javascript is executed on the browser. To reduce loading times, all pages are generated once, and then cached by Nginx."
+  },
+  "generic": {
+    "read_more": "Read more"
   }
 }

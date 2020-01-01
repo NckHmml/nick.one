@@ -8,14 +8,14 @@
     "noUnusedLocals": true,
     "removeComments": true,
     "resolveJsonModule": true,
+    "moduleResolution": "node",
     "jsx": "react",
     "baseUrl": "./src",
     "paths": {
-      "~*": ["./*"]
+      "~/*": ["./*"]
     },
     "lib": [
-      "es5",
-      "es6",
+      "ESNext",
       "dom"
     ]
   },

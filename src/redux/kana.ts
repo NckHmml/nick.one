@@ -1,6 +1,7 @@
 
 import { observable, observe, IObservableArray, IArrayChange, IValueDidChange } from "mobx";
 import * as storage from "localforage";
+import { Randomize, CreateSeed } from "~/helpers/global";
 
 export class KanaStore {
   @observable
@@ -11,6 +12,8 @@ export class KanaStore {
   public repeat: number = 1;
   @observable
   public delay: number = 200;
+  @observable
+  public state: KanaGameState;
 
   constructor() {
     if (!process.env.BROWSER) return; // Don't need this on the server side
@@ -38,6 +41,12 @@ export class KanaStore {
       .getItem("kana.delay")
       .then((value: number) => this.delay = value || 200)
       .catch(console.error);
+
+    observe(this, "state", this.stateChange);
+    storage
+      .getItem("kana.state")
+      .then((value: KanaGameState) => this.state = Object.assign(new KanaGameState, value))
+      .catch(console.error);
   }
 
   private selectedChange = (_change: IArrayChange<string>) => {
@@ -56,6 +65,33 @@ export class KanaStore {
   private delayChange = (change: IValueDidChange<number>) => {
     storage.setItem("kana.delay", change.newValue);
   }
+
+  private stateChange = (change: IValueDidChange<KanaGameState>) => {
+    storage.setItem("kana.state", change.newValue);
+  }
+
+  public stateNext = () => {
+    this.state.step++;
+    storage.setItem("kana.state", this.state);
+  }
+
+  public resetStep = () => {
+    this.state.step = 0;
+    storage.setItem("kana.state", this.state);
+  }
+
+  public getTestItems = () => {
+    if (!this.state) return;
+    const { seed } = this.state;
+
+    const selected = this.selected.peek();
+    const testItems = new Array<string[]>(this.repeat)
+      .fill(selected)
+      .flat()
+      .map(x => KANA_BUFFER.find(k => k.kana === x));
+    Randomize(testItems, seed);
+    return testItems;
+  }
 }
 
 /**
@@ -67,6 +103,16 @@ export class KanaItem {
     public kana: string,
     public hiragana: boolean,
     public group: number
+  ) { }
+}
+
+/**
+ * Kana game state
+ */
+export class KanaGameState {
+  constructor(
+    public seed: string = CreateSeed(),
+    public step: number = 0
   ) { }
 }
 

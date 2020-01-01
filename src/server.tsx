@@ -10,7 +10,7 @@ import { renderToString } from "react-dom/server";
 import { StaticRouter, Switch, Route } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { AppComponent } from "./app";
+import { App, AppComponent } from "./app";
 import { KanaPage } from "~/pages/kana";
 import { AboutPage } from "~/pages/about";
 import { HomePage } from "~/pages/home";
@@ -26,20 +26,26 @@ const indexTemplate = Handlebars.compile(indexHtml.toString());
 
 const renderReact: express.RequestHandler = (req: Request, res: Response) => {
   const context = { statusCode: 200 };
+  const languageJson = (() => {
+    switch (req.params.lang) {
+      case "nl": {
+        return require("./languages/nl.json");
+      }
+      case "en":
+      default: {
+        return require("./languages/en.json");
+      }
+    }
+  })();
+  App.I18N = languageJson;
   // Also maintain routes in browser.tsx
   const reactDom = renderToString(
-    <StaticRouter location={req.url} context={context}>
+    <StaticRouter basename={`/${req.params.lang || "en"}`} location={req.url} context={context}>
       <AppComponent>
         <Switch>
-          <Route exact={true} path="/">
-            <HomePage />
-          </Route>
-          <Route exact={true} path="/about">
-            <AboutPage />
-          </Route>
-          <Route exact={true} path="/kana">
-            <KanaPage />
-          </Route>
+          <Route exact={true} path="/" component={HomePage} />
+          <Route exact={true} path="/about" component={AboutPage} />
+          <Route exact={true} path="/kana(/test)?" component={KanaPage} />
           <Route component={NotFoundPage} />
         </Switch>
       </AppComponent>
@@ -54,9 +60,11 @@ const renderReact: express.RequestHandler = (req: Request, res: Response) => {
   }));
 };
 
-// index should alway go to react (else it will take the static dist/index.html)
-server.get("/", renderReact);
-server.get("/index.html", renderReact);
+const redirect = (_req, res: Response) => res.redirect("/en/");
+server.get("/", redirect);
+server.get("/index.html", redirect);
+server.get("/:lang([a-z]{2})/", renderReact);
+
 // Host /dist as static
 server.use(express.static(path.resolve(__dirname, "../dist")));
 // All other request try to handle by React

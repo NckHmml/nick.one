@@ -10,9 +10,13 @@
   &-center {
     text-align: center;
   }
+
+  &-red {
+    color: $cl-tertiary;
+  }
 }
 
-a[href] {
+a[href]:not(.c-button)  {
   color: $cl-secondary;
   transition: color 500ms;
 

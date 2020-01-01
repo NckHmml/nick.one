@@ -1,40 +1,23 @@
 import * as React from "react";
-import * as defaultLang from "~/languages/en.json";
+import { App } from "~/app";
 
 interface I18NProps {
   parent: keyof I18NJSON;
   children: string;
 }
 
-interface I18NState {
-  text: string;
-}
-
-export class I18N extends React.Component<I18NProps, I18NState> {
-  public state: I18NState = {
-    text: defaultLang[this.props.parent][this.props.children]
-  };
-
-  private loadText() {
-    // import("~/languages/nl.json").then((json) => {
-    //   const { parent, children } = this.props;
-    //   const text = json[parent][children];
-    //   this.setState({ text });
-    // });
-  }
-
-  public componentDidUpdate(prevProps: I18NProps) {
+export class I18N extends React.Component<I18NProps> {
+  private getText() {
     const { parent, children } = this.props;
-    if (parent !== prevProps.parent || children !== prevProps.children) {
-      this.loadText();
+    const fallback = <b className="text-red">{parent}.{children}</b>
+    try {
+      return App.I18N[parent][children] || fallback;
+    } catch {
+      return fallback;
     }
   }
 
-  public componentDidMount() {
-    this.loadText();
-  }
-
   public render() {
-    return this.state.text;
+    return this.getText();
   }
 }

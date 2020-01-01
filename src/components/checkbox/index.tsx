@@ -6,7 +6,7 @@ export interface ICheckboxProps {
   /** Checked state callback */
   onChange?: (checked: boolean) => void;
   /** Title label */
-  title?: string;
+  title?: string | React.ReactNode;
   /** Default checked state */
   defaultValue?: boolean;
   /** Optional class names */

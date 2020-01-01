@@ -14,63 +14,69 @@ const AboutPageLazy = React.lazy(() => import("./pages/about"));
 const HomePageLazy = React.lazy(() => import("./pages/home"));
 const KanaPageLazy = React.lazy(() => import("./pages/kana"));
 
-
-import("./app").then((m) => {
-  const { App, AppComponent } = m;
-
-  const loader = <div>Loading...</div>;
-  
-  // Also maintain routes in server.tsx
-  const Entry = () => (
-    <AppComponent>
-      <Switch>
-        <Route exact={true} path="/">
-          <React.Suspense fallback={loader}>
-            <HomePageLazy />
-          </React.Suspense>
-        </Route>
-        <Route exact={true} path="/about">
-          <React.Suspense fallback={loader}>
-            <AboutPageLazy />
-          </React.Suspense>
-        </Route>
-        <Route exact={true} path="/kana">
-          <React.Suspense fallback={loader}>
-            <KanaPageLazy />
-          </React.Suspense>
-        </Route>
-        <Route component={NotFoundPage} />
-      </Switch>
-    </AppComponent>
-  );
-  
-  // Start rendering application
-  if (process.env.DEBUG === "true") {
-    if (module["hot"]) {
-      module["hot"].accept()
+const regex = /^\/([a-z]{2})\//i;
+const language = regex.test(location.pathname) ? regex.exec(location.pathname)[1] : "en";
+const pLanguage = (() => {
+  switch (language) {
+    case "nl": {
+      return import("./languages/nl.json");
     }
-    ReactDOM.render(
-      <BrowserRouter>
-        <Entry />
-      </BrowserRouter>,
-      document.getElementById("entry")
-    );
-  } else {
-    // Load MS App Insights
-    App.insights = new ApplicationInsights({
-      config: { 
-        instrumentationKey: process.env.INSIGHTS_KEY,
-        enableDebug: process.env.DEBUG === "true",
-      }
-    });
-    App.insights.loadAppInsights();
-    App.insights.trackPageView();
-  
-    ReactDOM.hydrate(
-      <BrowserRouter>
-        <Entry />
-      </BrowserRouter>,
-      document.getElementById("entry")
-    );
+    case "en":
+    default: {
+      return import("./languages/en.json");
+    }
   }
-});
+})();
+
+Promise
+  .all<typeof import("./app"), typeof import("./languages/en.json")>([import("./app"), pLanguage])
+  .then(([mApp, mLanguage]) => {
+    const { App, AppComponent } = mApp;
+    App.I18N = mLanguage;
+
+    const loader = <div>Loading...</div>;
+
+    // Also maintain routes in server.tsx
+    const Entry = () => (
+      <AppComponent>
+        <React.Suspense fallback={loader}>
+          <Switch>
+            <Route exact={true} path="/" component={HomePageLazy} />
+            <Route exact={true} path="/about" component={AboutPageLazy} />
+            <Route exact={true} path="/kana(/test)?" component={KanaPageLazy} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </React.Suspense>
+      </AppComponent>
+    );
+
+    // Start rendering application
+    if (process.env.DEBUG === "true") {
+      if (module["hot"]) {
+        module["hot"].accept()
+      }
+      ReactDOM.render(
+        <BrowserRouter basename={`/${language}/`}>
+          <Entry />
+        </BrowserRouter>,
+        document.getElementById("entry")
+      );
+    } else {
+      // Load MS App Insights
+      App.insights = new ApplicationInsights({
+        config: {
+          instrumentationKey: process.env.INSIGHTS_KEY,
+          enableDebug: process.env.DEBUG === "true",
+        }
+      });
+      App.insights.loadAppInsights();
+      App.insights.trackPageView();
+
+      ReactDOM.hydrate(
+        <BrowserRouter basename={`/${language}/`}>
+          <Entry />
+        </BrowserRouter>,
+        document.getElementById("entry")
+      );
+    }
+  });

@@ -72,7 +72,7 @@ class Navigation extends React.Component<RouteComponentProps<{}>, INavigationSta
               <div className="nav-item g-24">
                 <div className="nav-item-checkbox">
                   <Checkbox
-                    title="Toggle dark mode"
+                    title={<I18N parent="navigation" children="toggle" />}
                     className="left"
                     defaultValue={App.globalStore.darkmode}
                     onChange={this.toggleDarkmode}

@@ -101,7 +101,7 @@
     position: relative;
     padding: 0;
 
-    a {
+    a[href] {
       color: #FFF;
       font-size: $fz-h3;  
       text-decoration: none;

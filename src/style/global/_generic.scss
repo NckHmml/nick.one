@@ -45,3 +45,9 @@ html, body, #entry {
     }
   }
 }
+
+input {
+  border: 1px solid $cl-primary;
+  box-sizing: border-box;
+  padding: 3px;
+}
