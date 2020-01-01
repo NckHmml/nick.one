@@ -16,7 +16,7 @@
   }
 }
 
-a[href]:not(.c-button)  {
+a[href]  {
   color: $cl-secondary;
   transition: color 500ms;
 

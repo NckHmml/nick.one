@@ -60,15 +60,11 @@ const renderReact: express.RequestHandler = (req: Request, res: Response) => {
   }));
 };
 
-const redirect = (_req, res: Response) => res.redirect("/en/");
-server.get("/", redirect);
-server.get("/index.html", redirect);
-server.get("/:lang([a-z]{2})/", renderReact);
-
 // Host /dist as static
 server.use(express.static(path.resolve(__dirname, "../dist")));
 // All other request try to handle by React
-server.get("/*", renderReact);
+server.get("/:lang([a-z]{2})/*", renderReact);
+server.get("/*", (req: Request, res: Response) => res.redirect(`/en${req.path}`));
 
 const port = 8080;
 server.listen(port, () => {

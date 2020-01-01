@@ -11,7 +11,7 @@ export class KanaStore {
   @observable
   public repeat: number = 1;
   @observable
-  public delay: number = 200;
+  public delay: number = 400;
   @observable
   public state: KanaGameState;
 
@@ -39,7 +39,7 @@ export class KanaStore {
     observe(this, "delay", this.delayChange);
     storage
       .getItem("kana.delay")
-      .then((value: number) => this.delay = value || 200)
+      .then((value: number) => this.delay = value || 400)
       .catch(console.error);
 
     observe(this, "state", this.stateChange);

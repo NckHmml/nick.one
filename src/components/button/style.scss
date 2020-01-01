@@ -3,7 +3,7 @@
 @mixin button-color($color, $font) {
   background: $color;
   &, &:active, &[href], &[href]:hover {
-    color: $font;
+    color: $font!important; // Yes, I hate it too
   }
 
   &:hover {

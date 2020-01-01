@@ -88,7 +88,7 @@ export class KanaTest extends React.Component<RouteComponentProps<{}>, ITestStat
    * Handles the guess event
    */
   private doGuess = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setGuess(event.target.value);
+    this.setGuess((event.target.value || "").toLowerCase());
   }
 
   /**
@@ -229,6 +229,9 @@ export class KanaTest extends React.Component<RouteComponentProps<{}>, ITestStat
             type="text"
             onChange={this.doGuess}
             value={guess}
+            autoCorrect="off"
+            autoComplete="off"
+            autoCapitalize="off"
           />
         </fieldset>
       </>

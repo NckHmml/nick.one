@@ -29,7 +29,7 @@
   }
 
   &-settings {
-    border-spacing: 8px;
+    border-spacing: 6px;
     margin: 0 -8px;
   }
 
@@ -50,6 +50,7 @@
 
     > input {
       width: 208px;
+      border-radius: 0; // iOS
 
       @include dark-mode {
         background: $cl-d-background;
