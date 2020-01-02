@@ -1,6 +1,6 @@
 
+import localforage from "localforage";
 import { observable, observe, IObservableArray, IArrayChange, IValueDidChange } from "mobx";
-import * as storage from "localforage";
 import { Randomize, CreateSeed } from "~/helpers/global";
 
 export class KanaStore {
@@ -19,31 +19,31 @@ export class KanaStore {
     if (!process.env.BROWSER) return; // Don't need this on the server side
 
     this.selected.observe(this.selectedChange);
-    storage
+    localforage
       .getItem("kana.selected")
       .then((values: Array<string>) => this.selected.replace(values || []))
       .catch(console.error);
 
     observe(this, "reverse", this.reverseChange);
-    storage
+    localforage
       .getItem("kana.reverse")
       .then((value: boolean) => this.reverse = value)
       .catch(console.error);
 
     observe(this, "repeat", this.repeatChange);
-    storage
+    localforage
       .getItem("kana.repeat")
       .then((value: number) => this.repeat = value || 1)
       .catch(console.error);
 
     observe(this, "delay", this.delayChange);
-    storage
+    localforage
       .getItem("kana.delay")
       .then((value: number) => this.delay = value || 400)
       .catch(console.error);
 
     observe(this, "state", this.stateChange);
-    storage
+    localforage
       .getItem("kana.state")
       .then((value: KanaGameState) => this.state = Object.assign(new KanaGameState, value))
       .catch(console.error);
@@ -51,33 +51,33 @@ export class KanaStore {
 
   private selectedChange = (_change: IArrayChange<string>) => {
     const array = this.selected.peek();
-    storage.setItem("kana.selected", array);
+    localforage.setItem("kana.selected", array);
   }
 
   private reverseChange = (change: IValueDidChange<boolean>) => {
-    storage.setItem("kana.reverse", change.newValue);
+    localforage.setItem("kana.reverse", change.newValue);
   }
 
   private repeatChange = (change: IValueDidChange<number>) => {
-    storage.setItem("kana.repeat", change.newValue);
+    localforage.setItem("kana.repeat", change.newValue);
   }
 
   private delayChange = (change: IValueDidChange<number>) => {
-    storage.setItem("kana.delay", change.newValue);
+    localforage.setItem("kana.delay", change.newValue);
   }
 
   private stateChange = (change: IValueDidChange<KanaGameState>) => {
-    storage.setItem("kana.state", change.newValue);
+    localforage.setItem("kana.state", change.newValue);
   }
 
   public stateNext = () => {
     this.state.step++;
-    storage.setItem("kana.state", this.state);
+    localforage.setItem("kana.state", this.state);
   }
 
   public resetStep = () => {
     this.state.step = 0;
-    storage.setItem("kana.state", this.state);
+    localforage.setItem("kana.state", this.state);
   }
 
   public getTestItems = () => {

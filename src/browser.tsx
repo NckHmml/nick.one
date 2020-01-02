@@ -1,6 +1,5 @@
-/* IE Polyfill (IE 10) */
-import "core-js/features/map";
-import "core-js/features/set";
+/* IE 11 and Edge */
+import "core-js/features/array";
 
 /* Imports */
 import * as React from "react";
@@ -26,10 +25,10 @@ const pLanguage = (() => {
       return import("./languages/en.json");
     }
   }
-})();
+})() as never as Promise<I18NJSON>;
 
 Promise
-  .all<typeof import("./app"), typeof import("./languages/en.json")>([import("./app"), pLanguage])
+  .all<typeof import("./app"), I18NJSON>([import("./app"), pLanguage])
   .then(([mApp, mLanguage]) => {
     const { App, AppComponent } = mApp;
     App.I18N = mLanguage;

@@ -48,7 +48,12 @@
     "caniuse-lite": "^1.0.30001017",
     "core-js": "^3.6.1",
     "parcel-bundler": "^1.12.4",
+    "parcel-plugin-goodie-bag": "^2.0.0",
     "sass": "^1.24.0",
     "tslib": "^1.10.0"
-  }
+  },
+  "browserslist": [
+    "last 2 versions",
+    "ie 11"
+  ]
 }

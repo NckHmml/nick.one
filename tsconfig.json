@@ -9,6 +9,7 @@
     "removeComments": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "baseUrl": "./src",
     "paths": {

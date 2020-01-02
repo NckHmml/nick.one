@@ -1,5 +1,5 @@
+import localforage from "localforage";
 import { observable, observe, IValueDidChange } from "mobx";
-import * as storage from "localforage";
 
 import { PreferrsDarkmode } from "~/helpers/global";
 
@@ -12,7 +12,7 @@ export class GlobalStore {
     if (!process.env.BROWSER) return; // Don't need this on the server side
 
     observe(this, "darkmode", this.darkmodeChange);
-    storage
+    localforage
       .getItem("darkmode")
       .then((value) => {
         if (typeof value === "boolean") {
@@ -35,6 +35,6 @@ export class GlobalStore {
 
   private darkmodeChange = (change: IValueDidChange<boolean>) => {
     if (this.darkmodeStored)
-      storage.setItem("darkmode", change.newValue);
+      localforage.setItem("darkmode", change.newValue);
   }
 }
