@@ -34,7 +34,7 @@ export const PreferrsDarkmode = () => {
 /**
  * Randomizes an array
  * @param array array to randomize
- * @param seed optional seed for the rng
+ * @param seed seed for the rng
  */
 export const Randomize = <T>(array: Array<T>, seed: string) => {
   const random = Random(seed);

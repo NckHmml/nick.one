@@ -7,7 +7,7 @@ import * as React from "react";
 import * as Handlebars from "handlebars";
 import { Request, Response } from "express";
 import { renderToString } from "react-dom/server";
-import { StaticRouter, Switch, Route } from "react-router-dom";
+import { StaticRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import { App, AppComponent } from "./app";
@@ -15,6 +15,16 @@ import { KanaPage } from "~/pages/kana";
 import { AboutPage } from "~/pages/about";
 import { HomePage } from "~/pages/home";
 import { NotFoundPage } from "~/pages/notFound";
+import { SudokuPage } from "~/pages/sudoku";
+import { PageRoutes } from "./routes";
+
+const routesProps = {
+  AboutPage,
+  HomePage,
+  KanaPage,
+  SudokuPage,
+  NotFoundPage
+}; 
 
 const server = express();
 
@@ -38,16 +48,10 @@ const renderReact: express.RequestHandler = (req: Request, res: Response) => {
     }
   })();
   App.I18N = languageJson;
-  // Also maintain routes in browser.tsx
   const reactDom = renderToString(
     <StaticRouter basename={`/${req.params.lang || "en"}`} location={req.url} context={context}>
       <AppComponent>
-        <Switch>
-          <Route exact={true} path="/" component={HomePage} />
-          <Route exact={true} path="/about" component={AboutPage} />
-          <Route exact={true} path="/kana(/test)?" component={KanaPage} />
-          <Route component={NotFoundPage} />
-        </Switch>
+        <PageRoutes {...routesProps} />
       </AppComponent>
     </StaticRouter>
   );

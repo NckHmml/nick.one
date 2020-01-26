@@ -2,6 +2,8 @@ $padding: 10;
 
 @for $i from 1 through $padding {
   .p {
+    padding: $i * 10px;
+
     &-t-#{$i} {
       padding-top: $i * 10px;
     }

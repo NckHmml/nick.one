@@ -1,0 +1,85 @@
+.sudoku {
+  @extend .page-intro;
+
+  &-instructions {
+    margin: 0;
+    padding: 0;
+  }
+
+  &-container {
+    @extend .page-container;
+  }
+
+  &-table {
+    border-spacing: 0;
+    width: 100%;
+
+    tr {
+      &:nth-child(3n+3):not(:nth-child(9)) td {
+        border-bottom: 1px solid $cl-primary;
+      }
+
+      &:nth-child(3n+2) {
+        background: rgba(#000, .02);
+      }
+    }
+
+    td {
+      border: 1px dotted transparent;
+      position: relative;
+
+      &::after {
+        content: '';
+        display: block;
+        margin-top: 100%;
+      }
+
+      &:nth-child(3n+3):not(:nth-child(9)) {
+        border-right: 1px solid $cl-primary;
+      }
+    }
+  }
+
+  &-cell {
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+
+    &:hover {
+      background: rgba($cl-primary, .05);
+
+      &,
+      & label {
+        cursor: text;
+      }
+    }
+
+    &.focused label {
+      color: $cl-primary;
+    }
+
+    &.invalid {
+      background: rgba($cl-tertiary, .2);
+    }
+
+    label {
+      display: block;
+      line-height: 0;
+      margin: 50% auto;
+
+      @include media-md {
+        font-size: $fz-h4;
+      }
+    }
+
+    &-input {
+      height: 0;
+      overflow: hidden;
+      width: 0;
+    }
+  }
+}

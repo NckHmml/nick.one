@@ -4,14 +4,20 @@ import "core-js/features/array";
 /* Imports */
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
+
+import { PageRoutes } from "./routes";
 
 import { NotFoundPage } from "./pages/notFound";
 
-const AboutPageLazy = React.lazy(() => import("./pages/about"));
-const HomePageLazy = React.lazy(() => import("./pages/home"));
-const KanaPageLazy = React.lazy(() => import("./pages/kana"));
+const routesProps = {
+  AboutPage: React.lazy(() => import("./pages/about")),
+  HomePage: React.lazy(() => import("./pages/home")),
+  KanaPage: React.lazy(() => import("./pages/kana")),
+  SudokuPage: React.lazy(() => import("./pages/sudoku")),
+  NotFoundPage
+}; 
 
 const regex = /^\/([a-z]{2})\//i;
 const language = regex.test(location.pathname) ? regex.exec(location.pathname)[1] : "en";
@@ -35,16 +41,10 @@ Promise
 
     const loader = <div>Loading...</div>;
 
-    // Also maintain routes in server.tsx
     const Entry = () => (
       <AppComponent>
         <React.Suspense fallback={loader}>
-          <Switch>
-            <Route exact={true} path="/" component={HomePageLazy} />
-            <Route exact={true} path="/about" component={AboutPageLazy} />
-            <Route exact={true} path="/kana(/test)?" component={KanaPageLazy} />
-            <Route component={NotFoundPage} />
-          </Switch>
+          <PageRoutes {...routesProps} />
         </React.Suspense>
       </AppComponent>
     );

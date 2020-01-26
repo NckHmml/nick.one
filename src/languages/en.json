@@ -2,6 +2,7 @@
   "navigation": {
     "home": "Home",
     "kana": "Kana",
+    "sudoku": "Sudoku",
     "about": "About",
     "toggle": "Toggle dark mode"
   },
@@ -29,6 +30,18 @@
     "start": "Start",
     "continue": "Continue",
     "cancel": "cancel"
+  },
+  "sudoku": {
+    "intro_title": "Sudoku solver",
+    "intro_text": "Sudoku is a logic-based, combinatorial number-placement puzzle. The objective is to fill a 9×9 grid with digits so that each column, each row, and each of the nine 3×3 subgrids that compose the grid contains all of the digits from 1 to 9. The puzzle setter provides a partially completed grid, which for a well-posed puzzle has a single solution.\n\nI was solving puzzles while travelling, when I thought to myself \"I wonder how hard it would be to solve these puzzles programmatically\" and thus I created this solver tool.",
+    "instruction_title": "Instructions",
+    "instruction_li_1": "Click a cell to change its value by typing a number",
+    "instruction_li_2": "Fill the field according to the puzzle you want to solve",
+    "instruction_li_3": "Cells that are colored red, are in conflict with eachother",
+    "instruction_li_4": "Press \"Solve\" to start solving",
+    "instruction_li_5": "Press \"Clear\" to set all cells back to \"0\"",
+    "solve": "Solve",
+    "clear": "Clear"
   },
   "about": {
     "intro_title": "About this website",
