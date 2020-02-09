@@ -65,11 +65,11 @@ export class SudokuCell extends React.Component<ISudokuCellProps, ISudokuCellSta
    */
   public render() {
     const { focused } = this.state;
-    const { value } = this.props;
+    const { value, valid } = this.props;
     const className = ClassNames({
       "sudoku-cell": true,
       "focused": focused,
-      "invalid": !this.props.valid
+      "invalid": !valid
     });
 
     return (

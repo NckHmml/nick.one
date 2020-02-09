@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { I18N } from "~/components/i18n";
 
 export class AboutPage extends React.Component {
   public render() {
@@ -10,12 +10,22 @@ export class AboutPage extends React.Component {
           <title>About</title>
         </Helmet>
 
-        <div className="g-24">
-          <h1>Hello World!</h1>
-          <h2>This is the AboutPage</h2>
-          <Link to="/">Home</Link>
-          <br />
-          <Link to="/test">Test</Link>
+        <div className="about safe-area">
+          <div className="g-24 g-md-20">
+            <h1><I18N parent="about" children="intro_title" /></h1>
+            <p><I18N parent="about" children="intro_text" /></p>
+            <br />
+            <h2><I18N parent="about" children="ssr_title" /></h2>
+            <p><I18N parent="about" children="ssr_text_1" /></p>
+            <p><I18N parent="about" children="ssr_text_2" /></p>
+            <br />
+            <h2><I18N parent="about" children="code_title" /></h2>
+            <p><I18N parent="about" children="code_text_1" /></p>
+            <p><I18N parent="about" children="code_text_2" /></p>
+            <br />
+            <h2><I18N parent="about" children="i18n_title" /></h2>
+            <p><I18N parent="about" children="i18n_text" /></p>
+          </div>
         </div>
       </>
     );
