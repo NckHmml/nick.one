@@ -16,12 +16,10 @@ export class AboutPage extends React.Component {
             <p><I18N parent="about" children="intro_text" /></p>
             <br />
             <h2><I18N parent="about" children="ssr_title" /></h2>
-            <p><I18N parent="about" children="ssr_text_1" /></p>
-            <p><I18N parent="about" children="ssr_text_2" /></p>
+            <p><I18N parent="about" children="ssr_text" /></p>
             <br />
             <h2><I18N parent="about" children="code_title" /></h2>
-            <p><I18N parent="about" children="code_text_1" /></p>
-            <p><I18N parent="about" children="code_text_2" /></p>
+            <p><I18N parent="about" children="code_text" /></p>
             <br />
             <h2><I18N parent="about" children="i18n_title" /></h2>
             <p><I18N parent="about" children="i18n_text" /></p>

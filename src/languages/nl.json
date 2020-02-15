@@ -1,10 +1,61 @@
 {
   "navigation": {
-    "home": "home",
-    "kana": "kana",
-    "about": "info"
+    "home": "Home",
+    "kana": "Kana",
+    "sudoku": "Sudoku",
+    "about": "Info",
+    "toggle": "Schakel dark mode in/uit",
+    "lang_en": "English",
+    "lang_nl": "Nederlands"
   },
   "home": {
-    "intro": "intro"
+    "intro_title": "Over mezelf",
+    "intro_text": "Hallo, mijn naam is Nick Hummel, ik heb een passie voor programmeren en het oplossen van moeilijke problemen. Ik ben een creatieve, abstracte en theoretische denker en heb het vermogen om ideeën vorm te geven. Ik heb zeer veel ervaring met de .NET technologie (C#, VB, MVC), ReactJS, SASS en TypeScript. Maar ook met talen zoals Java, Javascript, Scala, SASS en PHP."
+  },
+  "kana": {
+    "intro_title": "Kana learning tool",
+    "intro_text": "Voordat ik op stage ging in Tokyo, wou ik tenminste wat basis Japans kunnen lezen. Na een kort onderzoek, was het duidelijk dat Hiragana en Katakana het makkelijkste te leren zijn. Helaas kon ik online geen leermiddel vinden die werkte op de manier die ik fijn vindt, wat ik fijn vindt is namelijk het veelvuldig herhalen zodat het na een tijd niet meer mogelijk is het te vergeten zelfs al zou je dat willen.",
+    "instruction_title": "Instructies",
+    "instruction_text": "Deze tool werkt met het herhallen van een bepaalde set karakters, gebaseerd op het idee dat door het vaak genoeg te herhalen, het bewaard blijft in je langetermijngeheugen.",
+    "instruction_li_1": "Gebruik de checkboxes om de karakets set te selecteren die je wil leren.",
+    "instruction_li_2": "'Reverse mode' betekents dat je 3 opties krijgt en je de correcte opties moet selecteren.",
+    "instruction_li_3": "'Repeat' is hoe vaak je alle karakter sets will herhalen.",
+    "instruction_li_4": "'Delay' is de tijd tussen twee vragen.",
+    "h_set": "Hiragana set",
+    "k_set": "Katakana set",
+    "other_settings": "Andere instellingen",
+    "add": "Voeg toe",
+    "add_all": "Voeg set toe",
+    "reverse": "Reverse mode",
+    "repeat": "Repeat",
+    "delay": "Delay",
+    "start": "Start",
+    "continue": "Hervat",
+    "cancel": "cancel"
+  },
+  "sudoku": {
+    "intro_title": "Sudoku solver",
+    "intro_text": "Sudoku is een puzzel bestaande uit negen bij negen vakjes die gegroepeerd zijn als negen blokken van drie bij drie vakjes. In de vakjes moeten de cijfers 1 tot en met 9 Ingevuld worden op zo'n manier dat in elke horizontale lijn én in elke verticale kolom en in elk van de negen blokjes de cijfers 1 tot en met 9 één keer voorkomen. In een aantal vakjes zijn de cijfers al ingevuld.\n\nIn het vliegtuig was ik Sudoku’s aan het oplossen, toen ik dacht \"Ik vraag me af, hoe moeilijk het zou zijn om deze puzzels programmatisch op te lossen?\" and dus heb ik deze tool gemaakt.",
+    "instruction_title": "Instructies",
+    "instruction_li_1": "Klik op een cel en verander de waarde door een nummer te typen",
+    "instruction_li_2": "Full het veld in op basis van de puzzel de je wilt oplossen",
+    "instruction_li_3": "Een cel die rood gekleurd is, bevat een foutieve waarde",
+    "instruction_li_4": "Klik op \"Solve\" om de puzzel op te lossen",
+    "instruction_li_5": "Klik op \"Clear\" om alle waardes terug op \"0\" te zetten",
+    "solve": "Solve",
+    "clear": "Clear"
+  },
+  "about": {
+    "intro_title": "Over deze website",
+    "intro_text": "In plaats van een portfolio, is deze website meer bedoeld als een testomgeving voor mezelf om bepaalde concepten uit te proberen of ze wel of niet klaar zijn voor productie. Een duidelijk voorbeeld hiervan is de Sudoku oplosser, want dit is een concept welke ik heb bedacht toen ik Sudoku puzzels aan het oplossen was. Hieronder een lijst van concepten met een korte uitleg ervan, die op deze website zijn geïmplementeerd.",
+    "ssr_title": "Server Sided Rendering (SSR)",
+    "ssr_text": "Omdat deze website is opgezet met React als een Single Page Application (SPA), hebben we een manier nodig voor zoekmachines om deze website goed te kunnen doorzoeken. Hoewel het voor Google mogelijk is deze website te crawlen door JavaScript uit te voeren, wordt gedacht dat Google dergelijke websites een lagere score geeft, de JavaScript-compatibele Google-crawler lijkt ook minder frequent de website te indexeren. Naast Google, lijkt het erop dat er maar weinig andere crawlers JavaScript kunnen uitvoeren, bovendien lijkt op dat het crawl process redelijk inconsistent is. Rekening houdend met al het bovenstaande, hebben we een manier nodig om onze React SPA naar HTML om te zetten zonder dat de crawler JavaScript hoeft uit te voeren.\n\nDeze website draait op twee containers, één met Nginx en één met NodeJS. De NodeJS-container is verantwoordelijk voor het weergeven van de React naar HTML, dit met behulp van bestaande React functionaliteit. En voor het geval dat we niet willen dat bepaalde code wordt uitgevoerd op de backend of frontend, injecteren we bepaalde omgevingsvariabelen in het buildproces. In het geval van de frontend betekent dit dat deze code als ongebruikte code wordt beschouwd en dus nooit in het gebundelde eindresultaat aanwezig zal zijn. De Nginx-container biedt een cachelaag aan bovenop de NodeJS-container, dit omdat de pagina’s voornamelijk statisch zijn, dus kunnen we hierdoor de belasting van de NodeJS-container verminderen.",
+    "code_title": "Code splitting",
+    "code_text": "Standaard wordt de output van de frontend build een enkele JavaScript-bundle. Zo een enkele bundle heeft de neiging behoorlijk groot te worden in het geval van grotere websites, wat een nadeel kan zijn voor, laten we zeggen, de laadsnelheid van de startpagina (welk misschien wel de belangrijkste pagina is). Omdat we de hoeveelheid JavaScript die op de pagina wordt geladen willen optimaliseren, geven we er de voorkeur aan om de enkele bundle op te splitsen in verschillende kleinere bundels die asynchroon kunnen worden geladen.\n\nOm deze JavaScript-bundle op te splitsen, wordt de frontend gebuild via Parcel en gebruiken we de React.Lazy functionaliteit. In dit geval van deze websites is de bundel opgesplitst voor 3rd party packages en per paginathema (bijvoorbeeld Home, Sudoku, About, Kana).",
+    "i18n_title": "Internationalisatie",
+    "i18n_text": "Omdat we onze website graag begrijpbaar will houden voor mensen die wellicht niet de Engelse taal beheersen, willen we vertalingen van alle teksten op de website aan kunnen bieden. In combinatie met de bovengenoemde codesplitsing hebben we alle teksten in een JSON-bestaand per taal opgeslagen, welk alleen wordt geladen als een dergelijke taal wordt aangevraagd (via de URL)."
+  },
+  "generic": {
+    "read_more": "Lees meer"
   }
 }

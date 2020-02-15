@@ -56,3 +56,15 @@ export const CreateSeed = (): string => {
   return (random.int32() + 0x7FFFFFFF).toString(16);
 }
 
+/**
+ * Gets the language that is set in the current url
+ */
+export const LanguageFromPath = (): string => {
+  if (!process.env.BROWSER) {
+    // window.location doesn't exists on server side
+    return "en";
+  }
+  const regex = /^\/([a-z]{2})\//i;
+  const language = regex.test(location.pathname) ? regex.exec(location.pathname)[1] : "en";
+  return language;
+}

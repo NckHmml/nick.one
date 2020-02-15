@@ -56,6 +56,18 @@ export class HomePage extends React.Component {
               </div>
             </div>
           </div>
+
+          <div className="g-24">
+            <div className="g-24 g-md-p-8 g-md-16 g-lg-p-12 g-lg-12">
+              <div className="home-item ">
+                <h2 className="text-right">
+                  <Link to="/kana"><I18N parent="sudoku">intro_title</I18N></Link>
+                </h2>
+                <p><I18N parent="sudoku">intro_text</I18N></p>
+                <Link to="/kana"><I18N parent="generic">read_more</I18N></Link>
+              </div>
+            </div>
+          </div>
         </div>
       </>
     );

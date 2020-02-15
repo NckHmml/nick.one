@@ -3,7 +3,7 @@ import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { observer } from "mobx-react";
 
 import { App } from "~/app";
-import { ClassNames } from "~/helpers/global";
+import { ClassNames, LanguageFromPath } from "~/helpers/global";
 import { Checkbox } from "~/components/checkbox";
 import { I18N } from "~/components/i18n";
 
@@ -18,6 +18,15 @@ class Navigation extends React.Component<RouteComponentProps<{}>, INavigationSta
     open: true,
     pristine: true,
   };
+
+  private changeLanguage(lang: "en" | "nl") {
+    const language = LanguageFromPath();
+    if (lang === language) return undefined;
+
+    return () => {
+      location.href = `/${lang}${this.props.location.pathname}`;
+    };
+  }
 
   private collapse = () => this.setState({ open: !this.state.open, pristine: false });
 
@@ -79,6 +88,12 @@ class Navigation extends React.Component<RouteComponentProps<{}>, INavigationSta
                     onChange={this.toggleDarkmode}
                   />
                 </div>
+              </div>
+              <div className="nav-lang g-12">
+                <a onClick={this.changeLanguage("en")}><I18N parent="navigation">lang_en</I18N></a>
+              </div>
+              <div className="nav-lang g-12">
+                <a onClick={this.changeLanguage("nl")}><I18N parent="navigation">lang_nl</I18N></a>
               </div>
             </div>
           </div>

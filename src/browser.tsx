@@ -10,6 +10,7 @@ import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { PageRoutes } from "./routes";
 
 import { NotFoundPage } from "./pages/notFound";
+import { LanguageFromPath } from "./helpers/global";
 
 const routesProps = {
   AboutPage: React.lazy(() => import("./pages/about")),
@@ -19,8 +20,7 @@ const routesProps = {
   NotFoundPage
 }; 
 
-const regex = /^\/([a-z]{2})\//i;
-const language = regex.test(location.pathname) ? regex.exec(location.pathname)[1] : "en";
+const language = LanguageFromPath();
 const pLanguage = (() => {
   switch (language) {
     case "nl": {

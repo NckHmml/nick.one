@@ -97,11 +97,13 @@
     overflow: hidden;
   }
 
+  &-lang,
   &-item {
     position: relative;
     padding: 0;
+    overflow: hidden;
 
-    a[href] {
+    a {
       color: #FFF;
       font-size: $fz-h3;  
       text-decoration: none;
@@ -157,6 +159,14 @@
       &::after {
         width: 25px;
       }
+    }
+  }
+
+  &-lang {
+    a {
+      @extend .link;
+      font-size: $fz-primary;  
+      padding: 10px 0 10px 30px;
     }
   }
 

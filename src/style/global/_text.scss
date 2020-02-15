@@ -16,6 +16,7 @@
   }
 }
 
+.link,
 a[href]  {
   color: $cl-secondary;
   transition: color 500ms;
@@ -26,5 +27,6 @@ a[href]  {
 
   &:hover {
     color: $cl-primary;
+    cursor: pointer;
   }
 }
