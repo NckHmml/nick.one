@@ -1,5 +1,6 @@
 /* IE 11 and Edge */
 import "core-js/features/array";
+import "core-js/modules/es.object.assign";
 
 /* Imports */
 import * as React from "react";

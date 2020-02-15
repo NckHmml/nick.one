@@ -3,6 +3,7 @@
     "module": "ESNext",
     "target": "ESNext",
     "isolatedModules": true,
+    "importHelpers": true,
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "noUnusedLocals": true,
